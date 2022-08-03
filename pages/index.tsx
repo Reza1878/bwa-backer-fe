@@ -7,10 +7,54 @@ import { clsx } from "clsx";
 
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
+  const projects = [
+    {
+      image: "/project-thumbnail-1.jpg",
+      title: "Robotic Hand",
+      description: "Creating robotic hand for better movement",
+      target: 10000000,
+      progress: 20,
+    },
+    {
+      image: "/project-thumbnail-2.jpg",
+      title: "Auto Pilot Drone",
+      description: "Self driving drone, no worry to drive again",
+      target: 12000000,
+      progress: 30,
+    },
+    {
+      image: "/project-thumbnail-3.jpg",
+      title: "Wireboard",
+      description: "The new era of mechanical keyboard",
+      target: 23000000,
+      progress: 25,
+    },
+    {
+      image: "/project-thumbnail-4.jpg",
+      title: "Wireless Earphone",
+      description: "Just pair to phone and ready to set",
+      target: 405000000,
+      progress: 50,
+    },
+    {
+      image: "/project-thumbnail-5.jpg",
+      title: "Auto Heater",
+      description: "Make the room keep warm automatically",
+      target: 124000000,
+      progress: 75,
+    },
+    {
+      image: "/project-thumbnail-6.jpg",
+      title: "Smart Lock",
+      description: "Open the door with just one tap and click",
+      target: 60000000,
+      progress: 85,
+    },
+  ];
   return (
     <div>
       <Head>
-        <title>Bwa Backer</title>
+        <title>Backer</title>
       </Head>
       <div>
         <div className="header__bg lg:max-h-[664px] -skew-y-6 origin-top-left h-auto" />
@@ -79,11 +123,12 @@ const Home: NextPage = () => {
           </nav>
           <div className="container px-6 xl:px-24 mx-auto flex flex-wrap justify-between pt-6">
             <div className="lg:w-1/2 w-full">
-              <h1 className="text-white font-medium text-2xl lg:text-4xl mb-8">
-                We helps <u className="decoration-secondary">startup</u>
-                <br className="block" /> to getting started &{" "}
-                <u className="decoration-secondary">funding</u>
-                <br className="block" /> their truly needs
+              <h1 className="text-white text-2xl lg:text-4xl mb-8 lg:pt-20">
+                We helps <u className="decoration-secondary">startup</u> to
+                getting started
+                <br />& <u className="decoration-secondary">funding</u> their
+                truly
+                <br className="block lg:hidden" /> needs
               </h1>
               <p className="text-white text-base lg:text-xl font-light mb-8">
                 Fund the best idea to become <br />a real product and be the
@@ -103,9 +148,12 @@ const Home: NextPage = () => {
           </div>
         </header>
 
-        <main className="lg:pt-24 2xl:pt-0">
-          <section id="step-section" className="container px-6 mx-auto">
-            <h2 className="text-2xl">
+        <main className="lg:pt-24 2xl:pt-0 pb-24">
+          <section
+            id="step-section"
+            className="container px-6 xl:px-24 mx-auto py-4"
+          >
+            <h2 className="text-2xl lg:text-3xl">
               Only 3 steps to execute your brigth ideas
             </h2>
             <div className="flex items-center flex-col">
@@ -117,7 +165,7 @@ const Home: NextPage = () => {
                   <picture>
                     <img src="/image/step-1-illustration.svg" alt="Step 1" />
                   </picture>
-                  <p className="py-2 font-medium text-xl">Sign Up</p>
+                  <p className="py-2 font-medium lg:text-xl">Sign Up</p>
                   <p>
                     Sign Up account and start <br /> funding project{" "}
                   </p>
@@ -143,6 +191,69 @@ const Home: NextPage = () => {
                   </p>
                 </div>
               </div>
+            </div>
+          </section>
+
+          <section className="container px-6 xl:px-24 mx-auto py-4">
+            <div className="flex flex-wrap justify-between items-center">
+              <h2 className="text-2xl lg:text-3xl">
+                New projects you can <br className="hidden lg:block" />
+                taken care of
+              </h2>
+
+              <a href="#" className="w-full lg:w-auto hover:underline">
+                View all
+              </a>
+            </div>
+
+            <div className="flex lg:justify-between flex-wrap mt-4">
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="rounded-lg box-border border border-gray-400 p-6 w-full lg:w-[30%] hover:shadow-xl transition-all project-card m-2"
+                >
+                  <div className="w-full">
+                    <picture>
+                      <img
+                        className="rounded-sm w-full h-52 object-cover"
+                        src={`/image/${project.image}`}
+                        alt=""
+                      />
+                    </picture>
+                    <h5 className="font-medium text-xl py-2">
+                      {project.title}
+                    </h5>
+                    <p className="font-light text-sm">{project.description}</p>
+
+                    <div className="bg-gray-300 my-2 block h-4 rounded-lg relative">
+                      <span
+                        style={{
+                          width: `${project.progress}%`,
+                          height: "100%",
+                          position: "absolute",
+                        }}
+                        className="bg-primary opacity-90 rounded-lg"
+                      >
+                        {" "}
+                      </span>
+                    </div>
+                    <div className="flex pt-2 pb-0 lg:pb-2 justify-between progress">
+                      <p className="font-light text-base">
+                        {project.progress}%
+                      </p>
+                      <p className="font-medium text-base">
+                        Rp. {new Intl.NumberFormat().format(project.target)}
+                      </p>
+                    </div>
+                    <a
+                      href="#"
+                      className="block mt-2 lg:mt-0 text-center bg-success hover:bg-secondary rounded-sm py-2 text-white opacity-100 lg:opacity-0 transition-all btn-fund"
+                    >
+                      Fund Now
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         </main>
