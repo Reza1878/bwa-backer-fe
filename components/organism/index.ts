@@ -1,3 +1,3 @@
 import GuestHeader from "./GuestHeader";
-
-export { GuestHeader };
+import StepSection from "./StepSection";
+export { GuestHeader, StepSection };

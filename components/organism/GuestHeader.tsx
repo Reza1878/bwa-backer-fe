@@ -1,4 +1,4 @@
-import { Button, Container, Img } from "components/atoms";
+import { Button, Container, Img, Typhograpy } from "components/atoms";
 import GuestNavbar from "components/molecules/navbar/GuestNavbar";
 import React from "react";
 function GuestHeader() {
@@ -7,16 +7,16 @@ function GuestHeader() {
       <GuestNavbar />
       <Container className="flex flex-wrap justify-between pt-6">
         <div className="lg:w-1/2 w-full">
-          <h1 className="text-white text-2xl lg:text-4xl mb-8 lg:pt-20">
-            We helps <u className="decoration-secondary">startup</u> to getting
-            started
-            <br />& <u className="decoration-secondary">funding</u> their truly
-            <br className="block lg:hidden" /> needs
-          </h1>
-          <p className="text-white text-base lg:text-xl font-light mb-8">
+          <Typhograpy className="mb-8 lg:pt-20 text-white" variant="h3">
+            We helps <u className="decoration-secondary">startup</u> to getting{" "}
+            <br className="hidden md:block" /> started &{" "}
+            <u className="decoration-secondary">funding</u> their{" "}
+            <br className="hidden lg:block" /> truly needs
+          </Typhograpy>
+          <Typhograpy variant="h5" className="font-light mb-8 text-white">
             Fund the best idea to become <br />a real product and be the
             contributor
-          </p>
+          </Typhograpy>
           <Button rounded size="md">
             Find a Project
           </Button>

@@ -56,7 +56,7 @@ function Button(props: Partial<ButtonProps>) {
     <a
       onClick={onClick}
       className={clsx(
-        "inline-block text-center px-6 text-white font-medium transition-all cursor-pointer",
+        "inline-block text-center px-6 text-white font-medium transition-all cursor-pointer w-full lg:w-auto",
         className,
         arrClassNames
       )}

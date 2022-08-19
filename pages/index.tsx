@@ -1,5 +1,5 @@
-import { Container, HeaderBackground } from "components/atoms";
-import { GuestHeader } from "components/organism";
+import { HeaderBackground } from "components/atoms";
+import { GuestHeader, StepSection } from "components/organism";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -57,51 +57,7 @@ const Home: NextPage = () => {
         <HeaderBackground part="header" />
         <GuestHeader />
         <main className="lg:pt-24 2xl:pt-0 pb-24">
-          <Container
-            id="step-section"
-            className="container px-6 xl:px-24 mx-auto py-4"
-          >
-            <h2 className="text-2xl lg:text-3xl">
-              Only 3 steps to execute your brigth ideas
-            </h2>
-            <div className="flex items-center flex-col">
-              <picture className="lg:block hidden">
-                <img alt="line-step" src="/image/line-step.svg" />
-              </picture>
-              <div className="w-full flex justify-evenly flex-wrap">
-                <div className="text-center w-full lg:w-1/3 flex flex-col items-center lg:py-0 py-6">
-                  <picture>
-                    <img src="/image/step-1-illustration.svg" alt="Step 1" />
-                  </picture>
-                  <p className="py-2 font-medium lg:text-xl">Sign Up</p>
-                  <p>
-                    Sign Up account and start <br /> funding project{" "}
-                  </p>
-                </div>
-                <div className="text-center w-full lg:w-1/3 flex flex-col items-center lg:-mt-14 lg:py-0 py-6">
-                  <picture>
-                    <img src="/image/step-2-illustration.svg" alt="Step 1" />
-                    <p className="py-2 font-medium text-xl">Open Project</p>
-                    <p>
-                      Choose some project idea, <br />
-                      and start funding
-                    </p>
-                  </picture>
-                </div>
-                <div className="text-center w-full lg:w-1/3 flex flex-col items-center lg:-mt-28 lg:py-0 py-6">
-                  <picture>
-                    <img src="/image/step-3-illustration.svg" alt="Step 1" />
-                  </picture>
-                  <p className="py-2 font-medium text-xl">Execute</p>
-                  <p>
-                    Time to makes dream <br />
-                    comes true
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Container>
-
+          <StepSection />
           <section className="container px-6 xl:px-24 mx-auto py-4">
             <div className="flex flex-wrap justify-between items-center">
               <h2 className="text-2xl lg:text-3xl">
@@ -114,7 +70,7 @@ const Home: NextPage = () => {
               </a>
             </div>
 
-            <div className="flex lg:justify-between flex-wrap mt-4">
+            <div className="flex lg:justify-between flex-wrap mt-4 text-">
               {projects.map((project, index) => (
                 <div
                   key={index}

@@ -5,5 +5,15 @@ import NavItem from "./NavItem";
 import Flex from "./Flex";
 import HeaderBackground from "./HeaderBackground";
 import Img from "./Img";
+import Typhograpy from "./Typhograpy";
 
-export { Container, Logo, Button, NavItem, Flex, HeaderBackground, Img };
+export {
+  Container,
+  Logo,
+  Button,
+  NavItem,
+  Flex,
+  HeaderBackground,
+  Img,
+  Typhograpy,
+};
