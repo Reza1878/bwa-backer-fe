@@ -18,6 +18,7 @@ function Typhograpy(props: Partial<TyphograpyProps>) {
       break;
     case "h3":
       variantStyles.push("text-3xl lg:text-4xl");
+      break;
     case "h4":
       variantStyles.push("text-2xl lg:text-3xl");
       break;
