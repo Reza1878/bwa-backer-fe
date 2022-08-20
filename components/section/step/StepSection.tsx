@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import { Container, Img, Typhograpy } from "components/atoms";
+import { Container, Img, Typhograpy } from "components/common";
 import React from "react";
+import StepItem from "./StepItem";
 
 function StepSection() {
   const stepImages = [
@@ -13,7 +14,6 @@ function StepSection() {
         </>
       ),
       title: "Sign Up",
-      containerClass: "",
     },
     {
       id: 2,
@@ -25,7 +25,6 @@ function StepSection() {
         </>
       ),
       title: "Open Project",
-      containerClass: "lg:-mt-14",
     },
     {
       id: 3,
@@ -37,7 +36,6 @@ function StepSection() {
         </>
       ),
       title: "Execute",
-      containerClass: "lg:-mt-28",
     },
   ];
   return (
@@ -51,18 +49,14 @@ function StepSection() {
       <div className="flex items-center flex-col">
         <Img containerClassNames="lg:block hidden" src="/image/line-step.svg" />
         <div className="w-full flex justify-evenly flex-wrap">
-          {stepImages.map((item) => (
-            <div
+          {stepImages.map((item, index) => (
+            <StepItem
               key={item.id}
-              className={clsx(
-                "text-center w-full lg:w-1/3 flex flex-col items-center lg:py-0 py-6",
-                item.containerClass
-              )}
-            >
-              <Img src={item.src} />
-              <Typhograpy className="font-medium py-2">{item.title}</Typhograpy>
-              <Typhograpy variant="small">{item.description}</Typhograpy>
-            </div>
+              title={item.title}
+              description={item.description}
+              src={item.src}
+              position={index}
+            />
           ))}
         </div>
       </div>

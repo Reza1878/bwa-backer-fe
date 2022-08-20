@@ -3,19 +3,23 @@ import React, { HTMLAttributes } from "react";
 
 interface HeaderBackgroundProps extends HTMLAttributes<HTMLElement> {
   part: "header" | "footer";
+  skew: boolean;
 }
 
-function HeaderBackground(props: HeaderBackgroundProps) {
-  const { className, part } = props;
+function HeaderBackground(props: Partial<HeaderBackgroundProps>) {
+  const { className, part, skew = true } = props;
   const arrClassName = [];
   switch (part) {
     case "header":
-      arrClassName.push("-skew-y-6 origin-top-left");
+      arrClassName.push("origin-top-left");
+      if (skew) arrClassName.push("-skew-y-6 ");
       break;
     case "footer":
-      arrClassName.push("skew-y-[4deg] origin-bottom-right");
+      arrClassName.push("origin-bottom-right");
+      if (skew) arrClassName.push("skew-y-[4deg] ");
     default:
-      arrClassName.push("-skew-y-6 origin-top-left");
+      arrClassName.push("origin-top-left");
+      if (skew) arrClassName.push("-skew-y-6 ");
       break;
   }
   return (

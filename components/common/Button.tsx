@@ -5,6 +5,7 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   size: "sm" | "md" | "lg";
   rounded: boolean;
   variant: "transparent" | "primary";
+  block: boolean;
 }
 
 function Button(props: Partial<ButtonProps>) {
@@ -15,6 +16,7 @@ function Button(props: Partial<ButtonProps>) {
     onClick,
     children,
     className,
+    block = false,
   } = props;
   const arrClassNames = [];
 
@@ -37,7 +39,7 @@ function Button(props: Partial<ButtonProps>) {
   if (rounded) {
     arrClassNames.push("rounded-full");
   } else {
-    arrClassNames.push("rounded-lg");
+    arrClassNames.push("rounded-sm");
   }
 
   switch (variant) {
@@ -56,9 +58,11 @@ function Button(props: Partial<ButtonProps>) {
     <a
       onClick={onClick}
       className={clsx(
-        "inline-block text-center px-6 text-white font-medium transition-all cursor-pointer w-full lg:w-auto",
+        "text-center px-6 text-white font-medium transition-all cursor-pointer w-full lg:w-auto",
         className,
-        arrClassNames
+        arrClassNames,
+        [!block && "inline-block"],
+        [block && "block"]
       )}
     >
       {children}

@@ -1,7 +1,9 @@
 import clsx from "clsx";
-import { Button, Container, Logo, NavItem } from "components/atoms";
+import { Button, Container, Logo } from "components/common";
+
 import React, { useState } from "react";
 import { Menu, X } from "react-feather";
+import NavItem from "./NavItem";
 
 function GuestNavbar() {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,7 @@
-import { Button, Container, Img, Typhograpy } from "components/atoms";
-import GuestNavbar from "components/molecules/navbar/GuestNavbar";
+import { Button, Container, Img, Typhograpy } from "components/common";
+
 import React from "react";
+import GuestNavbar from "../navbar/GuestNavbar";
 function GuestHeader() {
   return (
     <header className="relative my-6">
