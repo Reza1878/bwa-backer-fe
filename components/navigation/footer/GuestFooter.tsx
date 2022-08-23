@@ -1,4 +1,4 @@
-import { Button, Container, Logo, Typhograpy } from "components/common";
+import { Button, Container, Logo, Typography } from "components/common";
 import HeaderBackground from "components/HeaderBackground";
 import React from "react";
 import GuestFooterList from "./GuestFooterList";
@@ -37,10 +37,10 @@ function GuestFooter() {
       <HeaderBackground part="footer" />
       <div className="relative pt-12 lg:pt-24">
         <Container className="text-center">
-          <Typhograpy variant="h3" className="text-white font-medium pb-6">
+          <Typography variant="h3" className="text-white font-medium pb-6">
             Easy way to funding <br className="hidden lg:block" /> best idea and
             innovation
-          </Typhograpy>
+          </Typography>
           <Button rounded className="font-medium" size="md">
             Getting Started
           </Button>

@@ -12,14 +12,16 @@ function HeaderBackground(props: Partial<HeaderBackgroundProps>) {
   switch (part) {
     case "header":
       arrClassName.push("origin-top-left");
-      if (skew) arrClassName.push("-skew-y-6 ");
+      if (skew) arrClassName.push("-skew-y-6");
       break;
     case "footer":
-      arrClassName.push("origin-bottom-right");
-      if (skew) arrClassName.push("skew-y-[4deg] ");
+      arrClassName.push("origin-bottom-right skew-y-[4deg]");
+      if (skew) arrClassName.push("skew-y-[4deg]");
+      break;
     default:
       arrClassName.push("origin-top-left");
-      if (skew) arrClassName.push("-skew-y-6 ");
+      if (skew) arrClassName.push("-skew-y-6");
+
       break;
   }
   return (

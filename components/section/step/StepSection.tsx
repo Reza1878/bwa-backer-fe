@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Container, Img, Typhograpy } from "components/common";
+import { Container, Img, Typography } from "components/common";
 import React from "react";
 import StepItem from "./StepItem";
 
@@ -43,9 +43,9 @@ function StepSection() {
       id="step-section"
       className="container px-6 xl:px-24 mx-auto py-4"
     >
-      <Typhograpy variant="h4">
+      <Typography variant="h4">
         Only 3 steps to execute your bright ideas
-      </Typhograpy>
+      </Typography>
       <div className="flex items-center flex-col">
         <Img containerClassNames="lg:block hidden" src="/image/line-step.svg" />
         <div className="w-full flex justify-evenly flex-wrap">

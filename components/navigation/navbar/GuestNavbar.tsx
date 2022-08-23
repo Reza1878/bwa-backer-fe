@@ -30,7 +30,7 @@ function GuestNavbar() {
               !open && "hidden"
             )}
           >
-            <NavItem href="#" title="Home" />
+            <NavItem href="/" title="Home" />
             <NavItem href="#" title="Project" />
             <NavItem href="#" title="Features" />
             <NavItem href="#" title="Success Stories" />

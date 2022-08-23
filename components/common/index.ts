@@ -3,6 +3,7 @@ import Container from "./Container";
 import Flex from "./Flex";
 import Img from "./Img";
 import Logo from "./Logo";
-import Typhograpy from "./Typhograpy";
+import Typography from "./Typography";
+import ProgressBar from "./ProgressBar";
 
-export { Button, Container, Flex, Img, Logo, Typhograpy };
+export { Button, Container, Flex, Img, Logo, Typography, ProgressBar };

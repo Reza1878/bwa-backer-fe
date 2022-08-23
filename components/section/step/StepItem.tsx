@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Img, Typhograpy } from "components/common";
+import { Img, Typography } from "components/common";
 import React from "react";
 interface StepItemProps {
   position: number;
@@ -19,8 +19,8 @@ function StepItem(props: StepItemProps) {
       )}
     >
       <Img src={src} />
-      <Typhograpy className="font-medium py-2">{title}</Typhograpy>
-      <Typhograpy variant="small">{description}</Typhograpy>
+      <Typography className="font-medium py-2">{title}</Typography>
+      <Typography variant="small">{description}</Typography>
     </div>
   );
 }

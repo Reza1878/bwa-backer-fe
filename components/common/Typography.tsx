@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import React, { HTMLAttributes } from "react";
 
-interface TyphograpyProps extends HTMLAttributes<HTMLParagraphElement> {
+interface TypographyProps extends HTMLAttributes<HTMLParagraphElement> {
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "body" | "small";
 }
 
-function Typhograpy(props: Partial<TyphograpyProps>) {
+function Typography(props: Partial<TypographyProps>) {
   const { children, style, className, variant } = props;
   const variantStyles = [];
 
@@ -42,4 +42,4 @@ function Typhograpy(props: Partial<TyphograpyProps>) {
   );
 }
 
-export default Typhograpy;
+export default Typography;

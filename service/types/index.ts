@@ -1,10 +1,31 @@
 export type MetaResponse = {
-  message: string;
-  code: number;
-  status: string;
+  message: any;
+  code: any;
+  status: any;
 };
 
-export type Response = {
+export type ApiResponse = {
   meta: MetaResponse;
   data: any;
+};
+
+export type ProjectType = {
+  id: number;
+  short_description: string;
+  description: string;
+  goal_amount: number;
+  current_amount: number;
+  name: string;
+  image_url: string;
+  backer_count: number;
+  slug: string;
+  perks: string[];
+  user: {
+    name: string;
+    image_url: string;
+  };
+  images: {
+    image_url: string;
+    is_primary: boolean;
+  }[];
 };
