@@ -17,6 +17,7 @@ import { ProjectType } from "service/types";
 function CampaignDetail() {
   const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<ProjectType>();
+  const [banner, setBanner] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -49,6 +50,17 @@ function CampaignDetail() {
       active = false;
     };
   }, [router, router.isReady]);
+
+  useEffect(() => {
+    if (campaign?.image_url) {
+      setBanner(`${BASE_URL}${campaign!.image_url}`);
+    }
+  }, [campaign]);
+
+  const handleImgClick = (src: string) => {
+    setBanner(`${BASE_URL}${src}`);
+  };
+
   return (
     <GuestLayout>
       <Container>
@@ -60,7 +72,7 @@ function CampaignDetail() {
                   <div className="w-full bg-white rounded-lg p-4 border border-gray-400">
                     <Img
                       className="rounded-lg max-h-[420px] object-cover w-full"
-                      src={`${BASE_URL}${campaign.image_url}`}
+                      src={banner}
                     />
                   </div>
                   <div className="w-full flex overflow-x-scroll mt-4 -mx-2 no-scrollbar">
@@ -69,6 +81,7 @@ function CampaignDetail() {
                         <picture
                           key={index}
                           className="mx-2 p-2 border border-gray-400 rounded-xl h-40 w-56 inline-block campaign-image-container cursor-pointer relative"
+                          onClick={() => handleImgClick(img.image_url)}
                         >
                           <img
                             className="w-full h-full object-cover rounded-xl"
