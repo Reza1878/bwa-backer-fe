@@ -29,3 +29,12 @@ export type ProjectType = {
     is_primary: boolean;
   }[];
 };
+
+export type UserType = {
+  id: number;
+  name: string;
+  occupation: string;
+  email: string;
+  token: string;
+  image_url: string;
+};

@@ -7,7 +7,12 @@ interface ImgProps extends ImgHTMLAttributes<HTMLImageElement> {
 function Img(props: ImgProps) {
   return (
     <picture className={props.containerClassNames}>
-      <img src={props.src} className={props.className} alt="" />
+      <img
+        src={props.src}
+        className={props.className}
+        alt=""
+        onClick={props.onClick}
+      />
     </picture>
   );
 }

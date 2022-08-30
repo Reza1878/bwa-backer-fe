@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import React, { AnchorHTMLAttributes } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: "sm" | "md" | "lg";
   rounded: boolean;
   variant: "transparent" | "primary";
@@ -17,6 +17,8 @@ function Button(props: Partial<ButtonProps>) {
     children,
     className,
     block = false,
+    disabled,
+    ...otherProps
   } = props;
   const arrClassNames = [];
 
@@ -55,18 +57,20 @@ function Button(props: Partial<ButtonProps>) {
       arrClassNames.push("bg-success hover:bg-secondary");
   }
   return (
-    <a
+    <button
       onClick={onClick}
       className={clsx(
         "text-center px-6 text-white font-medium transition-all cursor-pointer w-full lg:w-auto",
-        className,
         arrClassNames,
+        className,
         [!block && "inline-block"],
-        [block && "block"]
+        [block && "block"],
+        [disabled && "bg-gray-400 hover:bg-gray-400 cursor-not-allowed"]
       )}
+      {...otherProps}
     >
       {children}
-    </a>
+    </button>
   );
 }
 

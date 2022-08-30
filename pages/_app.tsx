@@ -7,8 +7,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <NextNProgress color="#3B41E3" />
-      <Component {...pageProps} />
       <ToastContainer />
+      <Component {...pageProps} />
     </>
   );
 }

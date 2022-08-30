@@ -44,6 +44,7 @@ function ProjectItem(props: ProjectItemProps) {
             size="sm"
             className="btn-fund mt-2 lg:mt-0 opacity-100 lg:opacity-0"
             onClick={handleClick}
+            style={{ width: "100%" }}
           >
             Fund Now
           </Button>
