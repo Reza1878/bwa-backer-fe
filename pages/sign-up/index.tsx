@@ -25,7 +25,6 @@ function SignUp() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),

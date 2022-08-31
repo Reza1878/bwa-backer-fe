@@ -1,12 +1,18 @@
 import axios from "axios";
 import { API_URL } from "config/constant";
 import Cookies from "js-cookie";
+import { sendAndHandleRequest } from "utils/api";
 import { ApiResponse } from "./types";
 
 export type SignUpPayload = {
   name: string;
   email: string;
   occupation: string;
+  password: string;
+};
+
+export type SignInPayload = {
+  email: string;
   password: string;
 };
 
@@ -52,5 +58,9 @@ export class AuthService {
         data: null,
       };
     }
+  }
+
+  static async signIn(payload: SignInPayload): Promise<ApiResponse> {
+    return sendAndHandleRequest("/sessions", "post", payload);
   }
 }

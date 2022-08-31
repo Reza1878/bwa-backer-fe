@@ -13,11 +13,14 @@ export async function sendAndHandleRequest(
     const { data, meta } = response.data;
     return { data, meta };
   } catch (error: any) {
+    console.log(error);
     return {
       meta: {
-        code: 500,
+        code: error?.response?.status || 500,
         message:
-          error?.response?.data?.meta?.message ?? "Internal server error",
+          (error?.response?.data?.data?.errors ||
+            error?.response?.data?.meta?.message) ??
+          "Internal server error",
         status: "error",
       },
       data: null,

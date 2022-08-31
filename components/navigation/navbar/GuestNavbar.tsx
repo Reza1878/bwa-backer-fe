@@ -88,12 +88,9 @@ function GuestNavbar() {
                 variant="transparent"
                 size="sm"
                 className="font-light mb-2 lg:mb-0 lg:mr-2"
-                onClick={() => router.push("/sign-up")}
+                onClick={() => router.push("/sign-in")}
               >
-                Daftar
-              </Button>
-              <Button rounded variant="transparent" className="font-light">
-                Akun Saya
+                Masuk
               </Button>
             </>
           ) : (

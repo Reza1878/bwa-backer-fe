@@ -8,7 +8,7 @@ function InputLabel(props: InputLabelProps) {
   return (
     <label
       htmlFor={htmlFor}
-      className={clsx("text-white text-lg mb-2", className)}
+      className={clsx("text-white text-lg mb-2 block", className)}
     >
       {children}
     </label>
