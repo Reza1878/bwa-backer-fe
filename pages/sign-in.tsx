@@ -36,7 +36,6 @@ function SignIn() {
         password: values.password,
       });
       const { data, meta } = response;
-      console.log(response);
       setLoading(false);
       if (meta.code !== 200) {
         updateToast(data?.errors || meta.message, "error");
@@ -46,7 +45,7 @@ function SignIn() {
       Cookies.set("token", data.token);
       setTimeout(() => {
         router.push("/");
-      }, 250);
+      }, 500);
     } catch (error: unknown) {
       console.log(error);
       setLoading(false);

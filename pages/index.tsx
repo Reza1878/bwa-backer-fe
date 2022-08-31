@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       headerBackground={<HeaderBackground part="header" />}
     >
       <div className="lg:pb-20">
-        <Container className="flex flex-wrap justify-between pt-6">
+        <Container className="flex flex-wrap justify-between lg:pt-6">
           <div className="lg:w-1/2 w-full">
             <Typography className="mb-8 lg:pt-20 text-white" variant="h3">
               We helps <u className="decoration-secondary">startup</u> to

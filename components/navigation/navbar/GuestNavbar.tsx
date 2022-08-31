@@ -1,26 +1,18 @@
 import clsx from "clsx";
-import { Button, Container, Img, Logo, Typography } from "components/common";
-import { BASE_URL } from "config/constant";
+import { Button, Container, Logo } from "components/common";
 import Cookies from "js-cookie";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { ChevronDown, ChevronUp, Menu, X } from "react-feather";
+import React, { useEffect, useState } from "react";
+import { Menu, X } from "react-feather";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
 import NavItem from "./NavItem";
+import UserMenu from "./UserMenu";
 
 function GuestNavbar() {
   const [open, setOpen] = useState(false);
-  const [openUserMenu, setOpenUserMenu] = useState(false);
-  const userMenu = useMemo(() => {
-    return [
-      { href: "/dashboard", title: "Dashboard" },
-      { href: "/account-settings", title: "Account Settings" },
-      { href: "/logout", title: "Logout" },
-    ];
-  }, []);
+
   const [user, setUser] = useState<UserType>();
 
   useEffect(() => {
@@ -94,58 +86,7 @@ function GuestNavbar() {
               </Button>
             </>
           ) : (
-            <div
-              className="bg-white rounded-xl cursor-pointer"
-              onClick={() => setOpenUserMenu(!openUserMenu)}
-            >
-              <div className="flex p-2">
-                <Img
-                  src={
-                    user.image_url
-                      ? `${BASE_URL}${user.image_url}`
-                      : "/image/mock-avatar.png"
-                  }
-                  className="w-12 h-12 object-cover rounded-full mr-2"
-                />
-                <div>
-                  <Typography variant="small" className="font-medium">
-                    {user.name}
-                  </Typography>
-                  <Typography
-                    variant="small"
-                    className="font-light text-gray-400"
-                  >
-                    {user.occupation}
-                  </Typography>
-                </div>
-                <div className="flex justify-center items-center ml-2">
-                  {!openUserMenu ? <ChevronUp /> : <ChevronDown />}
-                </div>
-              </div>
-              <div
-                className={clsx(
-                  [openUserMenu && "show"],
-                  [!openUserMenu && "hidden"]
-                )}
-              >
-                {userMenu.map((um, index) => (
-                  <Link key={index} href={um.href}>
-                    <Typography
-                      variant="small"
-                      className={clsx(
-                        "p-2 hover:text-secondary transition-all",
-                        [
-                          index !== userMenu.length - 1 &&
-                            "border-b-2 border-b-gray-300",
-                        ]
-                      )}
-                    >
-                      {um.title}
-                    </Typography>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <UserMenu user={user} />
           )}
         </div>
       </Container>

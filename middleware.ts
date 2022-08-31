@@ -8,8 +8,10 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-  if (!isAuthenticated(request)) {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (request.nextUrl.pathname.startsWith("/sign-up/upload")) {
+    if (!isAuthenticated(request)) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 }
 
