@@ -42,7 +42,7 @@ function ProjectSection() {
         </a>
       </div>
 
-      <div className="flex lg:justify-between flex-wrap mt-4 text-">
+      <div className="flex flex-wrap mt-4 text-">
         {projects.map((project: ProjectType, index) => (
           <ProjectItem
             id={project.id}

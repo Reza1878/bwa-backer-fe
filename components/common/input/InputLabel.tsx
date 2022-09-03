@@ -1,16 +1,23 @@
 import clsx from "clsx";
 import React, { LabelHTMLAttributes } from "react";
+import Typography from "../Typography";
 
-interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {}
+interface InputLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  error: boolean;
+}
 
-function InputLabel(props: InputLabelProps) {
-  const { htmlFor, children, className } = props;
+function InputLabel(props: Partial<InputLabelProps>) {
+  const { htmlFor, children, className, error } = props;
   return (
     <label
       htmlFor={htmlFor}
-      className={clsx("text-white text-lg mb-2 block", className)}
+      className={clsx(
+        "text-white text-lg mb-2 block",
+        [error && "text-red-500"],
+        className
+      )}
     >
-      {children}
+      <Typography>{children}</Typography>
     </label>
   );
 }

@@ -1,3 +1,3 @@
 import GuestLayout from "./GuestLayout";
-
-export { GuestLayout };
+import MemberLayout from "./MemberLayout";
+export { GuestLayout, MemberLayout };

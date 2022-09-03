@@ -80,6 +80,7 @@ function SignIn() {
                 register={register}
                 error={!!errors.email}
                 helperText={errors?.email?.message}
+                rounded
               />
               <TextField
                 label="Password"
@@ -89,6 +90,7 @@ function SignIn() {
                 name="password"
                 register={register}
                 error={!!errors.password}
+                rounded
                 helperText={errors?.password?.message}
               />
 

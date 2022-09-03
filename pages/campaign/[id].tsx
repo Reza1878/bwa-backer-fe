@@ -1,4 +1,6 @@
+import { CampaignImageItem } from "components/campaign";
 import {
+  Avatar,
   Button,
   Container,
   Img,
@@ -78,20 +80,11 @@ function CampaignDetail() {
                   <div className="w-full flex overflow-x-scroll mt-4 -mx-2 no-scrollbar">
                     <div className="flex flex-nowrap">
                       {campaign.images.map((img, index) => (
-                        <picture
+                        <CampaignImageItem
                           key={index}
-                          className="mx-2 p-2 border border-gray-400 rounded-xl h-40 w-56 inline-block campaign-image-container cursor-pointer relative"
+                          src={`${BASE_URL}${img.image_url}`}
                           onClick={() => handleImgClick(img.image_url)}
-                        >
-                          <img
-                            className="w-full h-full object-cover rounded-xl"
-                            src={`${BASE_URL}${img.image_url}`}
-                            alt=""
-                          />
-                          <div className="picture-overlay rounded-xl bg-secondary bg-opacity-70 flex justify-center items-center transition-all">
-                            <CheckCircle width={48} height={48} color="white" />
-                          </div>
-                        </picture>
+                        />
                       ))}
                     </div>
                   </div>
@@ -106,10 +99,7 @@ function CampaignDetail() {
                     Project Leader:
                   </Typography>
                   <div className="flex mb-4">
-                    <Img
-                      className="w-16 h-16 rounded-full object-contain"
-                      src={`${BASE_URL}${campaign.user.image_url}`}
-                    />
+                    <Avatar src={campaign.user.image_url} />
                     <div className="ml-4">
                       <Typography variant="h5" className="font-medium">
                         {campaign.user.name}

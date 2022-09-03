@@ -8,7 +8,10 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-  if (request.nextUrl.pathname.startsWith("/sign-up/upload")) {
+  if (
+    request.nextUrl.pathname.startsWith("/sign-up/upload") ||
+    request.nextUrl.pathname.startsWith("/member")
+  ) {
     if (!isAuthenticated(request)) {
       return NextResponse.redirect(new URL("/", request.url));
     }
@@ -16,5 +19,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/sign-up/upload", "/sign-in"],
+  matcher: ["/sign-up/upload", "/sign-in", "/member/:path*"],
 };

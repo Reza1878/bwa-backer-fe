@@ -68,6 +68,7 @@ function SignUp() {
       name,
       placeholder,
       register,
+      rounded: true,
       error: !!errors[name],
       helperText: errors[name]?.message,
     };

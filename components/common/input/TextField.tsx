@@ -1,14 +1,16 @@
 import clsx from "clsx";
 import React, { forwardRef, InputHTMLAttributes, RefObject } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 import Typography from "../Typography";
 import InputLabel from "./InputLabel";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<any>;
   error: boolean;
   helperText: any;
+  labelClassName: string | undefined;
+  rounded: boolean;
 }
 
 const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
@@ -20,20 +22,28 @@ const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
       register,
       error = false,
       helperText,
+      rounded,
+      labelClassName,
       ...otherProps
     } = props;
     const registerAttr = register ? register(props.name ?? "") : {};
     return (
       <div className="mb-4">
-        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+        {label && (
+          <InputLabel error={error} htmlFor={id} className={labelClassName}>
+            {label}
+          </InputLabel>
+        )}
         <input
           {...otherProps}
           autoComplete="off"
           id={id}
           className={clsx(
-            "w-full py-3 px-6 rounded-full focus:outline-none",
+            "w-full py-3 px-6 focus:outline-none",
             className,
-            [error && "border border-red-500"]
+            [error && "border border-red-500"],
+            [rounded && "rounded-full"],
+            [!rounded && "rounded-xl"]
           )}
           {...registerAttr}
         />

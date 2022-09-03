@@ -20,8 +20,8 @@ function UserMenu(props: UserMenuProps) {
   const router = useRouter();
   const userMenu = useMemo(() => {
     return [
-      { href: "/dashboard", title: "Dashboard" },
-      { href: "/account-settings", title: "Account Settings" },
+      { href: "/member/dashboard", title: "Dashboard" },
+      { href: "/member/account-settings", title: "Account Settings" },
     ];
   }, []);
 
