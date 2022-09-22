@@ -31,11 +31,11 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
         href: "/member/campaign",
       },
       {
-        title: "Payment",
+        title: "Transaction",
         icon: (strokeWidth: number = 1) => (
           <CreditCard strokeWidth={strokeWidth} />
         ),
-        href: "/member/payment",
+        href: "/member/transaction",
       },
       {
         title: "Account",

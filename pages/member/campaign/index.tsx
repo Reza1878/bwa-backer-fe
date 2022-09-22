@@ -1,7 +1,8 @@
 import { Button, Typography } from "components/common";
+import { BaseTable } from "components/common/table";
 import { MemberLayout } from "components/layouts";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Edit, FileText } from "react-feather";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
@@ -27,6 +28,61 @@ function CampaignList() {
       active = false;
     };
   }, []);
+
+  const columnSettings = useMemo(() => {
+    return [
+      {
+        label: "Campaign",
+        name: "name",
+      },
+      {
+        label: "Amount",
+        name: "goal_amount",
+        options: {
+          customBodyRender: (val: number) =>
+            new Intl.NumberFormat().format(val),
+        },
+      },
+      {
+        label: "Current Amount",
+        name: "current_amount",
+        options: {
+          customBodyRender: (val: number) =>
+            new Intl.NumberFormat().format(val),
+        },
+      },
+      {
+        label: "",
+        name: "",
+        options: {
+          customBodyRenderLite: (index: number) => {
+            const item: ProjectType = campaigns[index];
+            return (
+              <>
+                <button
+                  className="p-2 bg-primary bg-opacity-80 hover:bg-opacity-100 transition-all rounded-lg"
+                  onClick={() =>
+                    router.push(`/member/campaign/${item.id}/detail`)
+                  }
+                >
+                  <FileText size={16} color="white" />
+                </button>
+                <button
+                  className="p-2 bg-success bg-opacity-80 hover:bg-opacity-100 transition-all rounded-lg lg:ml-2 mt-2 lg:mt-0"
+                  onClick={() =>
+                    router.push(`/member/campaign/${item.id}/edit`)
+                  }
+                >
+                  <Edit size={16} color="white" />
+                </button>
+              </>
+            );
+          },
+        },
+      },
+    ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaigns]);
   return (
     <MemberLayout title="Campaign List">
       <Typography variant="h4" className="font-medium">
@@ -43,73 +99,11 @@ function CampaignList() {
           </Button>
         </div>
         <div className="overflow-auto">
-          <table className="w-full border">
-            <thead className="border-b">
-              <tr>
-                <th className="p-2">
-                  <Typography variant="small">Campaign</Typography>
-                </th>
-                <th className="p-2">
-                  <Typography variant="small">Goal Amount</Typography>
-                </th>
-                <th className="p-2">
-                  <Typography variant="small">Current Amount</Typography>
-                </th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {!loading && campaigns.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="text-center p-2">
-                    <Typography variant="small">No data available!</Typography>
-                  </td>
-                </tr>
-              )}
-              {loading && (
-                <tr>
-                  <td colSpan={4} className="text-center p-2">
-                    <Typography variant="small">Loading...</Typography>
-                  </td>
-                </tr>
-              )}
-              {campaigns.map((item: ProjectType, index) => (
-                <tr key={index} className="border-b">
-                  <td className="p-2">
-                    <Typography variant="small">{item.name}</Typography>
-                  </td>
-                  <td className="p-2">
-                    <Typography variant="small">
-                      {new Intl.NumberFormat().format(item.goal_amount)}
-                    </Typography>
-                  </td>
-                  <td className="p-2">
-                    <Typography variant="small">
-                      {new Intl.NumberFormat().format(item.current_amount)}
-                    </Typography>
-                  </td>
-                  <td className="p-2">
-                    <button
-                      className="p-2 bg-primary bg-opacity-80 hover:bg-opacity-100 transition-all rounded-lg"
-                      onClick={() =>
-                        router.push(`/member/campaign/${item.id}/detail`)
-                      }
-                    >
-                      <FileText size={16} color="white" />
-                    </button>
-                    <button
-                      className="p-2 bg-success bg-opacity-80 hover:bg-opacity-100 transition-all rounded-lg lg:ml-2 mt-2 lg:mt-0"
-                      onClick={() =>
-                        router.push(`/member/campaign/${item.id}/edit`)
-                      }
-                    >
-                      <Edit size={16} color="white" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <BaseTable
+            loading={loading}
+            data={campaigns}
+            columns={columnSettings}
+          />
         </div>
       </div>
     </MemberLayout>

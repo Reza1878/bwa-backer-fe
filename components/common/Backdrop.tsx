@@ -10,9 +10,9 @@ function Backdrop(props: Partial<BackdropProps>) {
   return (
     <div
       className={clsx(
-        "absolute w-full h-full bg-black bg-opacity-70 top-0 left-0 cursor-pointer",
+        "fixed inset-0 bg-black opacity-70 transition-opacity cursor-pointer",
         [show && "visible"],
-        [!show && "invisible"],
+        [!show && "invisible opacity-0"],
         className
       )}
       onClick={onClick}

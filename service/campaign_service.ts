@@ -45,6 +45,10 @@ export class CampaignService {
     return sendAndHandleRequest("/campaigns", "post", payload);
   }
 
+  static async uploadImage(payload: FormData): Promise<ApiResponse> {
+    return sendAndHandleRequest("/campaigns-images", "post", payload);
+  }
+
   static async update(
     id: number,
     payload: CreateCampaignPayload

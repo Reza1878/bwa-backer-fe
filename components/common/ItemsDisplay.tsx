@@ -16,9 +16,11 @@ function ItemsDisplay(props: ItemsDisplayProps) {
   return (
     <>
       {attrAndLabels.map((attr, index) => (
-        <div key={index} className="flex flex-wrap my-2 justify-between">
-          <Typography className="font-bold">{attr.label}</Typography>
-          <div className="w-full lg:w-4/5">
+        <div key={index} className="grid grid-cols-3 gap-4">
+          <div className="col-span-3 lg:col-span-1">
+            <Typography className="font-bold">{attr.label}</Typography>
+          </div>
+          <div className="col-span-3 lg:col-span-2">
             <Typography>
               {attr.display ? attr.display(data[attr.key]) : data[attr.key]}
             </Typography>

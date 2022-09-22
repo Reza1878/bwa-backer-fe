@@ -9,10 +9,12 @@ import Avatar from "./Avatar";
 import Backdrop from "./Backdrop";
 import Card from "./Card";
 import ItemsDisplay from "./ItemsDisplay";
+import Modal from "./Modal";
 
 export {
   Button,
   Container,
+  Modal,
   Flex,
   Img,
   Logo,

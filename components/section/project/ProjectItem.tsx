@@ -20,7 +20,7 @@ function ProjectItem(props: ProjectItemProps) {
     router.push(`/campaign/${id}`);
   };
   return (
-    <div className="rounded-lg box-border border border-gray-400 p-6 w-full lg:w-[30%] hover:shadow-xl transition-all project-card m-2">
+    <div className="rounded-lg box-border border border-gray-400 p-6 col-span-3 lg:col-span-1 hover:shadow-xl transition-all project-card m-2">
       <div className="w-full">
         <div>
           <Img

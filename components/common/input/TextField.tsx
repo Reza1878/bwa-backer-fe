@@ -39,7 +39,7 @@ const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
           autoComplete="off"
           id={id}
           className={clsx(
-            "w-full py-3 px-6 focus:outline-none",
+            "w-full py-3 px-6 focus:outline-none border",
             className,
             [error && "border border-red-500"],
             [rounded && "rounded-full"],

@@ -42,7 +42,7 @@ function ProjectSection() {
         </a>
       </div>
 
-      <div className="flex flex-wrap mt-4 text-">
+      <div className="grid grid-cols-3 gap-6 mt-4">
         {projects.map((project: ProjectType, index) => (
           <ProjectItem
             id={project.id}

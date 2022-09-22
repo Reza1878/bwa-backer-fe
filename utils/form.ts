@@ -5,7 +5,7 @@ export function purgeInitialFormData(initialFormData: any, baseBlankForm: any) {
 
   const formData = merge(cloneDeep(blankForm), initialFormData);
 
-  Object.keys(initialFormData).forEach((key) => {
+  Object.keys(initialFormData ?? {}).forEach((key) => {
     if (!has(blankForm, key)) {
       delete formData[key];
     }
