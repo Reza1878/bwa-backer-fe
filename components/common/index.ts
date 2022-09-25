@@ -10,6 +10,7 @@ import Backdrop from "./Backdrop";
 import Card from "./Card";
 import ItemsDisplay from "./ItemsDisplay";
 import Modal from "./Modal";
+import AvatarPicker from "./AvatarPicker";
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   Backdrop,
   Card,
   ItemsDisplay,
+  AvatarPicker,
 };

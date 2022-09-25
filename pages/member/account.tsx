@@ -1,4 +1,5 @@
 import { PasswordForm, ProfileForm } from "components/account";
+import AvatarForm from "components/account/AvatarForm";
 import { Typography } from "components/common";
 import LoadingIndicator from "components/common/LoadingIndicator/LoadingIndicator";
 import { MemberLayout } from "components/layouts";
@@ -63,6 +64,15 @@ function Account() {
     }
     showToast(meta.message, "success");
   };
+
+  const onAvatarFormSubmit = async (val: FormData) => {
+    const response = await UserService.uploadAvatar(val);
+    if (response.meta.code == 200) {
+      showToast(response.meta.message, "success");
+    } else {
+      showToast(response.meta.message, "error");
+    }
+  };
   return (
     <MemberLayout title="Account">
       <Typography variant="h4">Account</Typography>
@@ -71,6 +81,7 @@ function Account() {
         <>
           <ProfileForm onSubmit={onProfileFormSubmit} user={user!} />
           <PasswordForm onSubmit={onPasswordFormSubmit} />
+          <AvatarForm onSubmit={onAvatarFormSubmit} />
         </>
       ) : (
         <div className="w-full flex justify-center items-center h-24">

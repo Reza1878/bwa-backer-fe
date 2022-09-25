@@ -41,6 +41,10 @@ export class CampaignService {
     );
   }
 
+  static async getCampaignTransactions(id: number): Promise<ApiResponse> {
+    return sendAndHandleRequest(`/campaigns/${id}/transactions`, "get");
+  }
+
   static async create(payload: CreateCampaignPayload): Promise<ApiResponse> {
     return sendAndHandleRequest("/campaigns", "post", payload);
   }

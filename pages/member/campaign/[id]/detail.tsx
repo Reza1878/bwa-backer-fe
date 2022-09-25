@@ -9,6 +9,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
 import UserService from "service/user_service";
+import { dateFormat } from "utils/date_format";
+import { rupiahFormat } from "utils/number_format";
 import useToast from "utils/toast-hooks";
 
 function DetailCampaign() {
@@ -40,7 +42,7 @@ function DetailCampaign() {
 
       setLoading(true);
       const response = await CampaignService.getItem(+id!);
-      const trxResponse = await UserService.getUserTransactions();
+      const trxResponse = await CampaignService.getCampaignTransactions(+id!);
       if (!active) return;
       const { data, meta } = response;
       if (meta.code != 200) {
@@ -49,7 +51,7 @@ function DetailCampaign() {
         return;
       }
       const { data: trxData } = trxResponse;
-      setTransactions(trxData);
+      setTransactions(trxData.filter((d: any) => d.status === "success"));
       setCampaign(data);
       setLoading(false);
     };
@@ -93,15 +95,21 @@ function DetailCampaign() {
       },
       {
         label: "Backer",
-        name: "user",
+        name: "name",
       },
       {
         label: "Amount",
         name: "amount",
+        options: {
+          customBodyRender: (val: number) => rupiahFormat(val),
+        },
       },
       {
         label: "Date",
         name: "created_at",
+        options: {
+          customBodyRender: (val: string) => dateFormat(val),
+        },
       },
     ];
   }, []);
@@ -146,7 +154,7 @@ function DetailCampaign() {
           </Card>
 
           <Card className="my-4">
-            <div className="w-full">
+            <div className="w-full overflow-x-auto">
               <Typography variant="h5">Transactions</Typography>
               <BaseTable columns={columnSettings} data={transactions} />
             </div>

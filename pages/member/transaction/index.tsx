@@ -1,9 +1,12 @@
+import clsx from "clsx";
 import { Typography } from "components/common";
 import { BaseTable } from "components/common/table";
 import { MemberLayout } from "components/layouts";
 import React, { useEffect, useMemo, useState } from "react";
 import { TransactionService } from "service/transaction_service";
 import { ProjectType } from "service/types";
+import { dateFormat } from "utils/date_format";
+import { rupiahFormat } from "utils/number_format";
 
 function TransactionList() {
   const [loading, setLoading] = useState(false);
@@ -34,7 +37,7 @@ function TransactionList() {
         label: "Created At",
         name: "created_at",
         options: {
-          customBodyRender: (val: string) => val.slice(0, 10),
+          customBodyRender: (val: string) => dateFormat(val),
         },
       },
       {
@@ -48,8 +51,7 @@ function TransactionList() {
         label: "Amount",
         name: "amount",
         options: {
-          customBodyRender: (val: number) =>
-            new Intl.NumberFormat().format(val),
+          customBodyRender: (val: number) => rupiahFormat(val),
         },
       },
       {
@@ -57,8 +59,16 @@ function TransactionList() {
         name: "status",
         options: {
           customBodyRender: (val: string) => {
+            let background = "bg-red-500";
+            if (val === "success") background = "bg-success";
+            if (val === "expired") background = "bg-secondary";
             return (
-              <span className="inline-block p-1 rounded bg-red-500 text-white text-center">
+              <span
+                className={clsx(
+                  "inline-block p-1 rounded text-white font-medium text-center bg-opacity-90",
+                  background
+                )}
+              >
                 {val}
               </span>
             );
