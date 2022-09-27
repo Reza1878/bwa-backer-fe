@@ -1,17 +1,16 @@
+import { Tab } from "@headlessui/react";
+import clsx from "clsx";
 import { PasswordForm, ProfileForm } from "components/account";
 import AvatarForm from "components/account/AvatarForm";
-import { Typography } from "components/common";
-import LoadingIndicator from "components/common/LoadingIndicator/LoadingIndicator";
 import { MemberLayout } from "components/layouts";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
 import useToast from "utils/toast-hooks";
 
-function Account() {
-  const [loading, setLoading] = useState(true);
+function AccountVar2() {
   const [user, setUser] = useState<UserType>();
-  const { showToast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -36,7 +35,10 @@ function Account() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const tabs = useMemo(() => {
+    return ["Profile", "Password", "Avatar"];
+  }, []);
+  const { showToast } = useToast();
   const onProfileFormSubmit = async (val: any) => {
     const response = await UserService.updateUser({
       name: val.name,
@@ -64,7 +66,6 @@ function Account() {
     }
     showToast(meta.message, "success");
   };
-
   const onAvatarFormSubmit = async (val: FormData) => {
     const response = await UserService.uploadAvatar(val);
     if (response.meta.code == 200) {
@@ -75,21 +76,36 @@ function Account() {
   };
   return (
     <MemberLayout title="Account">
-      <Typography variant="h4">Account</Typography>
-
-      {!loading ? (
-        <>
-          <ProfileForm onSubmit={onProfileFormSubmit} user={user!} />
-          <PasswordForm onSubmit={onPasswordFormSubmit} />
-          <AvatarForm onSubmit={onAvatarFormSubmit} />
-        </>
-      ) : (
-        <div className="w-full flex justify-center items-center h-24">
-          <LoadingIndicator />
-        </div>
-      )}
+      <Tab.Group>
+        <Tab.List className="bg-white p-3 flex rounded-lg">
+          {tabs.map((item) => (
+            <Tab key={item} as={Fragment}>
+              {({ selected }) => (
+                <button
+                  className={clsx("flex-1 focus:outline-none p-1 rounded-md", [
+                    selected && "bg-success text-white",
+                  ])}
+                >
+                  {item}
+                </button>
+              )}
+            </Tab>
+          ))}
+        </Tab.List>
+        <Tab.Panels>
+          <Tab.Panel>
+            <ProfileForm onSubmit={onProfileFormSubmit} user={user!} />
+          </Tab.Panel>
+          <Tab.Panel>
+            <PasswordForm onSubmit={onPasswordFormSubmit} />
+          </Tab.Panel>
+          <Tab.Panel>
+            <AvatarForm onSubmit={onAvatarFormSubmit} />
+          </Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
     </MemberLayout>
   );
 }
 
-export default Account;
+export default AccountVar2;

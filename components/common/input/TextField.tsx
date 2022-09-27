@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { forwardRef, InputHTMLAttributes, RefObject } from "react";
+import React, { forwardRef, InputHTMLAttributes } from "react";
 import { UseFormRegister } from "react-hook-form";
 import Typography from "../Typography";
 import InputLabel from "./InputLabel";

@@ -1,4 +1,4 @@
-import { CampaignImageItem } from "components/campaign";
+import { CampaignImageItem, CampaignInfo } from "components/campaign";
 import {
   Avatar,
   Button,
@@ -7,6 +7,7 @@ import {
   ProgressBar,
   Typography,
 } from "components/common";
+import { CurrencyInput } from "components/common/input";
 import { GuestLayout } from "components/layouts";
 import { BASE_URL } from "config/constant";
 import { useRouter } from "next/router";
@@ -93,45 +94,7 @@ function CampaignDetail() {
             </div>
 
             <div className="w-full lg:w-1/4">
-              {campaign && (
-                <div className="bg-white p-4 border border-gray-400 rounded-xl mt-4 lg:mt-0 sticky top-4">
-                  <Typography variant="body" className="mb-4">
-                    Project Leader:
-                  </Typography>
-                  <div className="flex mb-4">
-                    <Avatar src={campaign.user.image_url} />
-                    <div className="ml-4">
-                      <Typography variant="h5" className="font-medium">
-                        {campaign.user.name}
-                      </Typography>
-                      <Typography variant="small" className="text-gray-400">
-                        {new Intl.NumberFormat().format(campaign.backer_count)}{" "}
-                        backer
-                      </Typography>
-                    </div>
-                  </div>
-                  <Typography variant="body" className="font-medium">
-                    What will you get:
-                  </Typography>
-                  <ul className="list-check mb-4">
-                    {campaign.perks.map((perk, index) => (
-                      <li key={index} className="my-2 flex flex-wrap">
-                        {perk}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <input
-                    type="number"
-                    className="border border-gray-400 w-full py-2 px-4 rounded-full focus:outline-none"
-                    placeholder="Amount in Rp."
-                  />
-
-                  <Button block className="mt-4" rounded>
-                    Fund Now
-                  </Button>
-                </div>
-              )}
+              {campaign && <CampaignInfo campaign={campaign} />}
             </div>
           </div>
           <div className="my-4 w-full lg:w-3/4">

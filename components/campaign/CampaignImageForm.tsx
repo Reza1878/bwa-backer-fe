@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Button, Card, Modal, Typography } from "components/common";
 import React, { useState } from "react";
+import { Switch } from "@headlessui/react";
 
 interface CampaignImageForm {
   show: boolean;
@@ -63,7 +64,28 @@ function CampaignImageForm(props: Partial<CampaignImageForm>) {
             </Typography>
           )}
         </div>
-        <div className="flex items-center mb-4">
+        <Switch.Group as="div" className="mb-4">
+          <div className="flex items-center">
+            <Switch
+              checked={isPrimary}
+              onChange={setIsPrimary}
+              className={clsx(
+                "relative inline-flex h-6 w-11 items-center rounded-full",
+                [isPrimary && "bg-primary"],
+                [!isPrimary && "bg-gray-200"]
+              )}
+            >
+              <span
+                className={clsx(
+                  "transition inline-block h-4 w-4 rounded-full bg-white translate-x-1",
+                  [isPrimary && "translate-x-6"]
+                )}
+              />
+            </Switch>
+            <Switch.Label className="ml-2">Is Primary</Switch.Label>
+          </div>
+        </Switch.Group>
+        {/* <div className="flex items-center mb-4">
           <input
             id="is-primary"
             type="checkbox"
@@ -74,8 +96,8 @@ function CampaignImageForm(props: Partial<CampaignImageForm>) {
           <label htmlFor="is-primary" className="ml-2 text-base">
             Primary
           </label>
-        </div>
-        <Button disabled={loading} onClick={handleSubmit}>
+        </div> */}
+        <Button block disabled={loading} onClick={handleSubmit}>
           Submit
         </Button>
       </Card>

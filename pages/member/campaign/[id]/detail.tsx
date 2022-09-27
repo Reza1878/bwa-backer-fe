@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
-import UserService from "service/user_service";
 import { dateFormat } from "utils/date_format";
 import { rupiahFormat } from "utils/number_format";
 import useToast from "utils/toast-hooks";
