@@ -12,4 +12,14 @@ export class TransactionService {
   static async getUserTransaction(): Promise<ApiResponse> {
     return sendAndHandleRequest("/transactions", "get");
   }
+
+  static async getTransactionSummary(
+    dateStart: string = "",
+    dateEnd: string = ""
+  ): Promise<ApiResponse> {
+    return sendAndHandleRequest(
+      `/transactions/summary?date_start=${dateStart}&date_end=${dateEnd}`,
+      "get"
+    );
+  }
 }
