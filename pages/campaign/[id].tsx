@@ -1,24 +1,15 @@
 import { CampaignImageItem, CampaignInfo } from "components/campaign";
-import {
-  Avatar,
-  Button,
-  Container,
-  Img,
-  ProgressBar,
-  Typography,
-} from "components/common";
-import { CurrencyInput } from "components/common/input";
+import { Container, ProgressBar, Typography } from "components/common";
 import { GuestLayout } from "components/layouts";
 import { BASE_URL } from "config/constant";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { CheckCircle } from "react-feather";
 import { toast } from "react-toastify";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
 
 function CampaignDetail() {
-  const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<ProjectType>();
   const [banner, setBanner] = useState("");
   const router = useRouter();
@@ -27,7 +18,6 @@ function CampaignDetail() {
     let active = true;
 
     const fetchData = async () => {
-      setLoading(true);
       const { id } = router.query;
       if (!id) {
         toast("Campaign id is required!", { type: "error", autoClose: 3000 });
@@ -43,7 +33,6 @@ function CampaignDetail() {
         return;
       }
       setCampaign(response.data);
-      setLoading(false);
     };
 
     if (router.isReady) {
@@ -73,10 +62,19 @@ function CampaignDetail() {
               {campaign && (
                 <>
                   <div className="w-full bg-white rounded-lg p-4 border border-gray-400">
-                    <Img
-                      className="rounded-lg max-h-[420px] object-cover w-full"
-                      src={banner}
-                    />
+                    <div className="relative min-h-[350px] max-h-[450px]">
+                      {banner && (
+                        <>
+                          <Image
+                            src={banner}
+                            className="rounded-lg"
+                            objectFit="cover"
+                            layout="fill"
+                            alt="project-banner"
+                          />
+                        </>
+                      )}
+                    </div>
                   </div>
                   <div className="w-full flex overflow-x-scroll mt-4 -mx-2 no-scrollbar">
                     <div className="flex flex-nowrap">

@@ -1,5 +1,6 @@
 import { Button, Img, ProgressBar } from "components/common";
 import { BASE_URL } from "config/constant";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -22,14 +23,17 @@ function ProjectItem(props: ProjectItemProps) {
   return (
     <div className="rounded-lg box-border border border-gray-400 p-6 col-span-3 lg:col-span-1 hover:shadow-xl transition-all project-card m-2">
       <div className="w-full">
-        <div>
-          <Img
-            className="rounded-sm w-full lg:h-52 object-cover"
+        <div className="relative h-64 lg:h-52">
+          <Image
+            alt="project-banner"
             src={`${BASE_URL}${image}`}
+            className="rounded-sm w-full"
+            objectFit="cover"
+            layout="fill"
           />
-          <h5 className="font-medium text-xl py-2">{title}</h5>
-          <p className="font-light text-sm">{description}</p>
         </div>
+        <h5 className="font-medium text-xl py-2">{title}</h5>
+        <p className="font-light text-sm">{description}</p>
 
         <div className="btn-fund-container my-2">
           <ProgressBar percentage={progress} />

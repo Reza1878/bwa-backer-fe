@@ -50,7 +50,7 @@ function CampaignInfo(props: CampaignInfoProps) {
       </ul>
 
       <CurrencyInput
-        label="Fund in Rp."
+        label="Amount in Rp."
         labelClassName="text-black"
         defaultValue={nominal}
         onValueChange={(val) => setNominal(val)}

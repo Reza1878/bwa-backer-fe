@@ -83,7 +83,7 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
       </div>
 
       <div className="flex pl-6 items-center py-6">
-        <Avatar className="w-12 h-12" src={user?.image_url} />
+        <Avatar className="w-12 h-14" src={user?.image_url} />
         <Typography className="ml-2 font-medium">
           {user?.name ?? "..."}
         </Typography>
