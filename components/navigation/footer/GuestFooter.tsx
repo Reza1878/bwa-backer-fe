@@ -45,7 +45,7 @@ function GuestFooter() {
             Getting Started
           </Button>
 
-          <div className="flex flex-wrap justify-between pt-12">
+          <div className="flex flex-wrap justify-between pt-12 w-full">
             <div className="w-full lg:w-1/3 flex flex-col items-start pb-8">
               <div className="w-full flex items-center">
                 <Logo />
