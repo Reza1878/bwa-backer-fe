@@ -1,4 +1,4 @@
-import { Button, Container, Img, Typography } from "components/common";
+import { Button, Container, Typography } from "components/common";
 import { TextField } from "components/common/input";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -7,9 +7,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { AuthService, SignUpPayload } from "service/auth_service";
+import signUpImage from "../../public/image/sign-up-background.jpg";
 
 import useToast from "utils/toast-hooks";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -81,10 +83,13 @@ function SignUp() {
       </Head>
       <div className="header__bg"></div>
       <div className="relative flex flex-wrap">
-        <div className="hidden lg:block w-1/3 h-screen">
-          <Img
-            src="/image/sign-up-background.jpg"
-            className="w-full h-screen rounded-r-lg object-cover"
+        <div className="hidden lg:block w-1/3 h-screen relative">
+          <Image
+            src={signUpImage}
+            alt="sign-up-image"
+            className="rounded-r-lg"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
         <Container className="w-full lg:w-2/3">

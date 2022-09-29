@@ -1,9 +1,11 @@
-import { Button, Container, Img, Typography } from "components/common";
+import { Button, Container, Typography } from "components/common";
 import HeaderBackground from "components/HeaderBackground";
 import { GuestLayout } from "components/layouts";
 import { ClientSection, ProjectSection, StepSection } from "components/section";
+import heroImage from "../public/image/hero-image@2x.png";
 
 import type { NextPage } from "next";
+import Image from "next/image";
 
 const Home: NextPage = () => {
   return (
@@ -34,10 +36,9 @@ const Home: NextPage = () => {
               Find a Project
             </Button>
           </div>
-          <Img
-            containerClassNames="lg:w-1/2 w-full"
-            src="/image/hero-image@2x.png"
-          />
+          <div className="relative lg:w-1/2 w-full">
+            <Image src={heroImage} alt="Hero image" placeholder="blur" />
+          </div>
         </Container>
       </div>
       <StepSection />

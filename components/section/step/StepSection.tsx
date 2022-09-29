@@ -1,13 +1,18 @@
-import clsx from "clsx";
-import { Container, Img, Typography } from "components/common";
+import { Container, Typography } from "components/common";
 import React from "react";
+import Image from "next/image";
+
 import StepItem from "./StepItem";
+import stepLine from "../../../public/image/line-step.svg";
+import step1 from "../../../public/image/step-1-illustration.svg";
+import step2 from "../../../public/image/step-2-illustration.svg";
+import step3 from "../../../public/image/step-3-illustration.svg";
 
 function StepSection() {
   const stepImages = [
     {
       id: 1,
-      src: "/image/step-1-illustration.svg",
+      src: step1,
       description: (
         <>
           Sign Up account and start <br /> funding project{" "}
@@ -17,7 +22,7 @@ function StepSection() {
     },
     {
       id: 2,
-      src: "/image/step-2-illustration.svg",
+      src: step2,
       description: (
         <>
           Choose some project idea, <br />
@@ -28,7 +33,7 @@ function StepSection() {
     },
     {
       id: 3,
-      src: "/image/step-3-illustration.svg",
+      src: step3,
       description: (
         <>
           Time to makes dream <br />
@@ -47,7 +52,9 @@ function StepSection() {
         Only 3 steps to execute your bright ideas
       </Typography>
       <div className="flex items-center flex-col">
-        <Img containerClassNames="lg:block hidden" src="/image/line-step.svg" />
+        <div className="lg:block hidden">
+          <Image src={stepLine} alt="step-line" />
+        </div>
         <div className="w-full flex justify-evenly flex-wrap">
           {stepImages.map((item, index) => (
             <StepItem

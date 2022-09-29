@@ -1,4 +1,9 @@
+import Image from "next/image";
 import React from "react";
+import testimonialLine from "../../../public/image/testimonial-line.svg";
+import client1 from "../../../public/image/testimonial-1-icon.png";
+import client2 from "../../../public/image/testimonial-2-icon.png";
+import client3 from "../../../public/image/testimonial-3-icon.png";
 
 function ClientSection() {
   return (
@@ -9,13 +14,9 @@ function ClientSection() {
       </h2>
 
       <div className="flex pt-6 lg:pl-20">
-        <picture>
-          <img
-            className="hidden lg:block"
-            src="/image/testimonial-line.svg"
-            alt=""
-          />
-        </picture>
+        <div className="lg:block hidden">
+          <Image src={testimonialLine} alt="testimonial-line" />
+        </div>
         <div className="lg:p-8 w-full lg:w-1/2">
           <h1 className="text-xl lg:text-2xl leading-relaxed">
             <i>&quot; </i>
@@ -31,19 +32,15 @@ function ClientSection() {
           </div>
 
           <div className="flex pt-4 justify-center lg:justify-start">
-            <picture className="opacity-60 pr-4">
-              <img src="/image/testimonial-1-icon.png" alt="" />
-            </picture>
-            <picture className="opacity-60 pr-4">
-              <img src="/image/testimonial-2-icon.png" alt="" />
-            </picture>
-            <picture className="pr-4">
-              <img
-                src="/image/testimonial-3-icon.png"
-                alt=""
-                className="rounded-full border-2 border-primary p-1"
-              />
-            </picture>
+            <div className="pr-4 rounded-full">
+              <Image src={client1} className="opacity-60" alt="client-1" />
+            </div>
+            <div className="pr-4 rounded-full">
+              <Image src={client2} className="opacity-60" alt="client-2" />
+            </div>
+            <div className="rounded-full flex justify-center items-center p-1 border-2 border-primary ">
+              <Image src={client3} alt="client-3" />
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { Img, Typography } from "components/common";
+import { Typography } from "components/common";
+import Image from "next/image";
 import React from "react";
 interface StepItemProps {
   position: number;
@@ -18,7 +19,7 @@ function StepItem(props: StepItemProps) {
         margin[position]
       )}
     >
-      <Img src={src} />
+      <Image src={src} alt="Step" />
       <Typography className="font-medium py-2">{title}</Typography>
       <Typography variant="small">{description}</Typography>
     </div>

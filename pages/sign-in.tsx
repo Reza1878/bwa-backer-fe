@@ -1,14 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Container, Img, Typography } from "components/common";
+import { Button, Container, Typography } from "components/common";
 import { TextField } from "components/common/input";
 import Cookies from "js-cookie";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthService } from "service/auth_service";
 import useToast from "utils/toast-hooks";
 import * as yup from "yup";
+import signInImage from "../public/image/sign-in-background.jpg";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -59,10 +61,13 @@ function SignIn() {
       </Head>
       <div className="header__bg"></div>
       <div className="h-screen flex justify-center items-center relative">
-        <div className="hidden md:block w-1/3 h-full">
-          <Img
-            src="/image/sign-in-background.jpg"
-            className="h-full rounded-r-xl"
+        <div className="hidden md:block w-1/3 h-full relative">
+          <Image
+            src={signInImage}
+            className="rounded-r-xl"
+            alt="sign-in-image"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
         <div className="w-full md:w-2/3">
