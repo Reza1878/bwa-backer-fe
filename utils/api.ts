@@ -13,7 +13,6 @@ export async function sendAndHandleRequest(
     const { data, meta } = response.data;
     return { data, meta };
   } catch (error: any) {
-    console.log(error);
     return {
       meta: {
         code: error?.response?.status || 500,

@@ -44,7 +44,8 @@ function SignIn() {
         return;
       }
       updateToast(meta.message, "success");
-      Cookies.set("token", data.token);
+      Cookies.set("token", data.access_token);
+      Cookies.set("refresh_token", data.refresh_token);
       setTimeout(() => {
         router.push("/");
       }, 500);

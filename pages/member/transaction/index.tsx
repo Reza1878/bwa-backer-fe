@@ -6,18 +6,22 @@ import React, { useEffect, useMemo, useState } from "react";
 import { TransactionService } from "service/transaction_service";
 import { ProjectType } from "service/types";
 import { dateFormat } from "utils/date_format";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import { rupiahFormat } from "utils/number_format";
 
 function TransactionList() {
   const [loading, setLoading] = useState(false);
   const [transactions, setTransactions] = useState([]);
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
   useEffect(() => {
     let active = true;
 
     const fetchData = async () => {
       setLoading(true);
-      const response = await TransactionService.getUserTransaction();
+      const response = await sendAndHandleInvalidToken(
+        TransactionService.getUserTransaction
+      );
 
       if (!active) return;
 
@@ -29,6 +33,7 @@ function TransactionList() {
     return () => {
       active = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const columnSettings = useMemo(() => {

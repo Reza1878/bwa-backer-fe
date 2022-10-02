@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import useToast from "utils/toast-hooks";
 
 function EditCampaign() {
@@ -14,6 +15,7 @@ function EditCampaign() {
   const [campaign, setCampaign] = useState<ProjectType>();
   const { showToast, toastLoading, updateToast } = useToast();
   const router = useRouter();
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
   useEffect(() => {
     let active = true;
@@ -21,7 +23,9 @@ function EditCampaign() {
     const fetchData = async () => {
       setLoading(true);
       const { id } = router.query;
-      const response = await CampaignService.getItem(+id!);
+      const response = await sendAndHandleInvalidToken(() =>
+        CampaignService.getItem(+id!)
+      );
       if (!active) return;
       const { data, meta } = response;
       if (meta.code != 200) {
@@ -47,13 +51,15 @@ function EditCampaign() {
   const onSubmit = async (val: any) => {
     try {
       toastLoading();
-      const response = await CampaignService.update(campaign!.id, {
-        description: val.description,
-        goal_amount: val.goal_amount,
-        name: val.name,
-        perks: val.perks,
-        short_description: val.short_description,
-      });
+      const response = await sendAndHandleInvalidToken(() =>
+        CampaignService.update(campaign!.id, {
+          description: val.description,
+          goal_amount: val.goal_amount,
+          name: val.name,
+          perks: val.perks,
+          short_description: val.short_description,
+        })
+      );
 
       const { meta } = response;
       if (meta.code != 200) {

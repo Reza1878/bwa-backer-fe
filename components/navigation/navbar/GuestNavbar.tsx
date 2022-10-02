@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Menu, X } from "react-feather";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import NavItem from "./NavItem";
 import UserMenu from "./UserMenu";
 
@@ -15,13 +16,15 @@ function GuestNavbar() {
 
   const [user, setUser] = useState<UserType>();
 
+  const send = useSendAndHandleInvalidToken();
+
   useEffect(() => {
     let active = true;
 
     const fetchUser = async () => {
       const token = Cookies.get("token");
       if (token) {
-        const response = await UserService.getUser();
+        const response = await send(UserService.getUser);
 
         if (!active) return;
 
@@ -33,6 +36,7 @@ function GuestNavbar() {
     return () => {
       active = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const router = useRouter();

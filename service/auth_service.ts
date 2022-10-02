@@ -63,4 +63,19 @@ export class AuthService {
   static async signIn(payload: SignInPayload): Promise<ApiResponse> {
     return sendAndHandleRequest("/sessions", "post", payload);
   }
+
+  static async refreshAccessToken(refreshToken: string) {
+    return sendAndHandleRequest("/sessions", "put", {
+      refresh_token: refreshToken,
+    });
+  }
+
+  static async logout(refreshToken: string) {
+    console.log({
+      refresh_token: refreshToken,
+    });
+    return sendAndHandleRequest("sessions", "delete", {
+      data: { refresh_token: refreshToken },
+    });
+  }
 }

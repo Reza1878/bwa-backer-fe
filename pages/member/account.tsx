@@ -6,17 +6,19 @@ import { MemberLayout } from "components/layouts";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import useToast from "utils/toast-hooks";
 
 function AccountVar2() {
   const [user, setUser] = useState<UserType>();
   const [loading, setLoading] = useState(false);
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
   useEffect(() => {
     let active = true;
 
     const fetchData = async () => {
-      const response = await UserService.getUser();
+      const response = await sendAndHandleInvalidToken(UserService.getUser);
       setLoading(true);
       const { data, meta } = response;
       if (meta.code != 200) {
@@ -40,11 +42,13 @@ function AccountVar2() {
   }, []);
   const { showToast } = useToast();
   const onProfileFormSubmit = async (val: any) => {
-    const response = await UserService.updateUser({
-      name: val.name,
-      email: val.email,
-      occupation: val.occupation,
-    });
+    const response = await sendAndHandleInvalidToken(() =>
+      UserService.updateUser({
+        name: val.name,
+        email: val.email,
+        occupation: val.occupation,
+      })
+    );
     const { meta } = response;
     if (meta.code != 200) {
       showToast(meta.message, "error");
@@ -54,11 +58,13 @@ function AccountVar2() {
     showToast(meta.message, "success");
   };
   const onPasswordFormSubmit = async (val: any) => {
-    const response = await UserService.updateUserPassword({
-      oldPassword: val.oldPassword,
-      newPassword: val.newPassword,
-      confirmationPassword: val.confirmationPassword,
-    });
+    const response = await sendAndHandleInvalidToken(() =>
+      UserService.updateUserPassword({
+        oldPassword: val.oldPassword,
+        newPassword: val.newPassword,
+        confirmationPassword: val.confirmationPassword,
+      })
+    );
     const { meta } = response;
     if (meta.code != 200) {
       showToast(meta.message, "error");
@@ -67,7 +73,9 @@ function AccountVar2() {
     showToast(meta.message, "success");
   };
   const onAvatarFormSubmit = async (val: FormData) => {
-    const response = await UserService.uploadAvatar(val);
+    const response = await sendAndHandleInvalidToken(() =>
+      UserService.uploadAvatar(val)
+    );
     if (response.meta.code == 200) {
       showToast(response.meta.message, "success");
     } else {

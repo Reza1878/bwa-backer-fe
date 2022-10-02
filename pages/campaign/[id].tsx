@@ -62,7 +62,7 @@ function CampaignDetail() {
               {campaign && (
                 <>
                   <div className="w-full bg-white rounded-lg p-4 border border-gray-400">
-                    <div className="relative min-h-[350px] max-h-[450px]">
+                    <div className="relative min-h-[300px] max-h-[450px]">
                       {banner && (
                         <>
                           <Image

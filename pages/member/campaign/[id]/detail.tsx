@@ -9,6 +9,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
 import { dateFormat } from "utils/date_format";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import { rupiahFormat } from "utils/number_format";
 import useToast from "utils/toast-hooks";
 
@@ -21,11 +22,15 @@ function DetailCampaign() {
   const [flagRefetch, setFlagRefetch] = useState(false);
   const { showToast } = useToast();
   const router = useRouter();
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
+
   const handleUploadImage = async (val: FormData) => {
     setIsUploading(true);
     val.append("campaign_id", campaign!.id.toString());
-    const response = await CampaignService.uploadImage(val);
-    const { data, meta } = response;
+    const response = await sendAndHandleInvalidToken(() =>
+      CampaignService.uploadImage(val)
+    );
+    const { meta } = response;
     setIsUploading(false);
     setShowUploadModal(false);
     showToast(meta.message, meta.code == 200 ? "success" : "error");
@@ -40,8 +45,12 @@ function DetailCampaign() {
       if (!id) router.push("/member/campaign");
 
       setLoading(true);
-      const response = await CampaignService.getItem(+id!);
-      const trxResponse = await CampaignService.getCampaignTransactions(+id!);
+      const response = await sendAndHandleInvalidToken(() =>
+        CampaignService.getItem(+id!)
+      );
+      const trxResponse = await sendAndHandleInvalidToken(() =>
+        CampaignService.getCampaignTransactions(+id!)
+      );
       if (!active) return;
       const { data, meta } = response;
       if (meta.code != 200) {

@@ -1,13 +1,15 @@
 import clsx from "clsx";
 import { Avatar, Logo, Typography } from "components/common";
 import Cookies from "js-cookie";
-import jwtDecode from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { Briefcase, CreditCard, Home, LogOut, User } from "react-feather";
+import { AuthService } from "service/auth_service";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
+import useToast from "utils/toast-hooks";
 
 interface MemberSidebarProps {
   open: boolean;
@@ -16,6 +18,8 @@ interface MemberSidebarProps {
 function MemberSidebar(props: Partial<MemberSidebarProps>) {
   const { open } = props;
   const router = useRouter();
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
+  const { toastLoading, updateToast } = useToast();
   const routes = useMemo(() => {
     return [
       {
@@ -44,13 +48,14 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
       },
     ];
   }, []);
+
   const [user, setUser] = useState<UserType>();
 
   useEffect(() => {
     let active = true;
 
     const fetchUser = async () => {
-      const response = await UserService.getUser();
+      const response = await sendAndHandleInvalidToken(UserService.getUser);
       const { data } = response;
       if (!data) router.push("/");
       if (!active) return;
@@ -63,8 +68,22 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const refreshToken = Cookies.get("refresh_token") || "test";
+
+    toastLoading();
+    const response = await sendAndHandleInvalidToken(() =>
+      AuthService.logout(refreshToken)
+    );
+
+    if (response.meta.code !== 200) {
+      updateToast(response.meta.message, "error");
+      return;
+    }
+    updateToast("Logout success", "success");
+
     Cookies.remove("token");
+    Cookies.remove("refresh_token");
     router.push("/");
   };
   return (
@@ -83,7 +102,7 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
       </div>
 
       <div className="flex pl-6 items-center py-6">
-        <Avatar className="w-12 h-14" src={user?.image_url} />
+        <Avatar className="w-12 h-12" src={user?.image_url} />
         <Typography className="ml-2 font-medium">
           {user?.name ?? "..."}
         </Typography>

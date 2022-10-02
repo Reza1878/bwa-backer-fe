@@ -6,18 +6,22 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Edit, FileText } from "react-feather";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 
 function CampaignList() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
   useEffect(() => {
     let active = true;
 
     const fetchData = async () => {
       setLoading(true);
-      const response = await CampaignService.getUserCampaigns();
+      const response = await sendAndHandleInvalidToken(
+        CampaignService.getUserCampaigns
+      );
 
       if (!active) return;
       setCampaigns(response.data);
@@ -27,6 +31,7 @@ function CampaignList() {
     return () => {
       active = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const columnSettings = useMemo(() => {

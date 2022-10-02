@@ -16,12 +16,15 @@ import {
 } from "recharts";
 import { TransactionService } from "service/transaction_service";
 import { dateFormat } from "utils/date_format";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import { rupiahFormat } from "utils/number_format";
 
 function Dashboard() {
   const router = useRouter();
 
   const [transactionsSummary, setTransactionsSummary] = useState([]);
+
+  const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
   const months = useMemo(() => {
     const arr = [];
@@ -40,9 +43,8 @@ function Dashboard() {
     const fetchData = async () => {
       const dateStart = months[0].toISOString().slice(0, 10);
       const dateEnd = months[months.length - 1].toISOString().slice(0, 10);
-      const response = await TransactionService.getTransactionSummary(
-        dateStart,
-        dateEnd
+      const response = await sendAndHandleInvalidToken(() =>
+        TransactionService.getTransactionSummary(dateStart, dateEnd)
       );
       if (!active) return;
       setTransactionsSummary(response.data);
@@ -53,7 +55,7 @@ function Dashboard() {
     return () => {
       active = false;
     };
-  }, [months]);
+  }, [months, sendAndHandleInvalidToken]);
 
   const data = useMemo(() => {
     return months.map((month) => {
