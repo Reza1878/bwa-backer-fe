@@ -25,7 +25,7 @@ function TransactionList() {
 
       if (!active) return;
 
-      setTransactions(response.data);
+      setTransactions(response.data ?? []);
       setLoading(false);
     };
     fetchData();

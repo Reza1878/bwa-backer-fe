@@ -1,11 +1,11 @@
+import { AuthContext } from "context/authContext";
 import Cookies from "js-cookie";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { AuthService } from "service/auth_service";
 import { ApiResponse } from "service/types";
-import useToast from "utils/toast-hooks";
 
 const useSendAndHandleInvalidToken = () => {
-  const { showToast } = useToast();
+  const { setOpenUnauthorizedModal } = useContext(AuthContext);
   const wrappedCallback = useCallback(
     async (callback: () => Promise<ApiResponse>): Promise<ApiResponse> => {
       try {
@@ -27,6 +27,7 @@ const useSendAndHandleInvalidToken = () => {
           Cookies.set("token", response.data.access_token);
           return await callback();
         } catch (e: any) {
+          setOpenUnauthorizedModal(true);
           return (
             e?.response?.data || {
               data: null,

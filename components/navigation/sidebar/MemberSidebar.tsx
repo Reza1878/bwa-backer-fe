@@ -57,7 +57,6 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
     const fetchUser = async () => {
       const response = await sendAndHandleInvalidToken(UserService.getUser);
       const { data } = response;
-      if (!data) router.push("/");
       if (!active) return;
       setUser(data);
     };

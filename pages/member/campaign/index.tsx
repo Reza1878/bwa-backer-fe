@@ -24,7 +24,7 @@ function CampaignList() {
       );
 
       if (!active) return;
-      setCampaigns(response.data);
+      setCampaigns(response.data ?? []);
       setLoading(false);
     };
     fetchData();
