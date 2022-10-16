@@ -4,9 +4,10 @@ export const dateFormat = (
     year: "numeric",
     day: "numeric",
     month: "long",
-  }
+  },
+  timeZone = "id-ID"
 ) => {
   const date = new Date(str);
 
-  return date.toLocaleDateString("id-ID", options);
+  return date.toLocaleDateString(timeZone, options);
 };

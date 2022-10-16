@@ -65,7 +65,7 @@ function TransactionList() {
         options: {
           customBodyRender: (val: string) => {
             let background = "bg-red-500";
-            if (val === "success") background = "bg-success";
+            if (val === "paid") background = "bg-success";
             if (val === "expired") background = "bg-secondary";
             return (
               <span

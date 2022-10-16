@@ -21,7 +21,7 @@ function UserMenu(props: UserMenuProps) {
   const userMenu = useMemo(() => {
     return [
       { href: "/member/dashboard", title: "Dashboard" },
-      { href: "/member/account-settings", title: "Account Settings" },
+      { href: "/member/account", title: "My Account" },
     ];
   }, []);
 

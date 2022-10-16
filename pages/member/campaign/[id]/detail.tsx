@@ -59,7 +59,7 @@ function DetailCampaign() {
         return;
       }
       const { data: trxData } = trxResponse;
-      setTransactions(trxData.filter((d: any) => d.status === "success"));
+      setTransactions(trxData.filter((d: any) => d.status === "paid"));
       setCampaign(data);
       setLoading(false);
     };

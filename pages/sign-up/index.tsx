@@ -48,6 +48,7 @@ function SignUp() {
         updateToast(response.data.message, "success");
         setLoading(false);
         Cookies.set("token", response.data.token);
+        Cookies.set("refresh_token", response.data.refresh_token);
         router.push("/sign-up/upload");
       } else {
         updateToast(response.meta.message, "error");

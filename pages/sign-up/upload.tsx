@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Edit2, Plus } from "react-feather";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
 import useToast from "utils/toast-hooks";
 
 function UploadPhoto() {
@@ -14,6 +15,7 @@ function UploadPhoto() {
   const [user, setUser] = useState<UserType>();
   const [loading, setLoading] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const send = useSendAndHandleInvalidToken();
   const { showToast, toastLoading, updateToast } = useToast();
 
   const router = useRouter();
@@ -23,7 +25,7 @@ function UploadPhoto() {
 
     const fetchUser = async () => {
       setLoading(true);
-      const response = await UserService.getUser();
+      const response = await send(UserService.getUser);
 
       if (!active) return;
 

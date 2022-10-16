@@ -4,11 +4,13 @@ import useToast from "utils/toast-hooks";
 
 interface AvatarFormProps {
   onSubmit: (val: FormData) => void;
+  disabled?: boolean;
 }
 
 function AvatarForm(props: AvatarFormProps) {
-  const { onSubmit } = props;
+  const { onSubmit, disabled } = props;
   const [image, setImage] = useState<File>();
+
   const { showToast } = useToast();
 
   const handleSubmit = () => {
@@ -28,7 +30,9 @@ function AvatarForm(props: AvatarFormProps) {
       <div className="flex justify-center">
         <AvatarPicker onImageChange={(val) => setImage(val)} />
       </div>
-      <Button onClick={handleSubmit}>Save</Button>
+      <Button disabled={disabled} onClick={handleSubmit}>
+        Save
+      </Button>
     </Card>
   );
 }

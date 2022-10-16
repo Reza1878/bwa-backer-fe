@@ -19,7 +19,7 @@ function AccountVar2() {
 
     const fetchData = async () => {
       const response = await sendAndHandleInvalidToken(UserService.getUser);
-      setLoading(true);
+
       const { data, meta } = response;
       if (meta.code != 200) {
         showToast(meta.message, "error");
@@ -28,7 +28,6 @@ function AccountVar2() {
 
       if (!active) return;
       setUser(data);
-      setLoading(false);
     };
 
     fetchData();
@@ -40,7 +39,7 @@ function AccountVar2() {
   const tabs = useMemo(() => {
     return ["Profile", "Password", "Avatar"];
   }, []);
-  const { showToast } = useToast();
+  const { showToast, updateToast, toastLoading } = useToast();
   const onProfileFormSubmit = async (val: any) => {
     const response = await sendAndHandleInvalidToken(() =>
       UserService.updateUser({
@@ -73,14 +72,17 @@ function AccountVar2() {
     showToast(meta.message, "success");
   };
   const onAvatarFormSubmit = async (val: FormData) => {
+    setLoading(true);
+    toastLoading();
     const response = await sendAndHandleInvalidToken(() =>
       UserService.uploadAvatar(val)
     );
     if (response.meta.code == 200) {
-      showToast(response.meta.message, "success");
+      updateToast(response.meta.message, "success");
     } else {
-      showToast(response.meta.message, "error");
+      updateToast(response.meta.message, "error");
     }
+    setLoading(false);
   };
   return (
     <MemberLayout title="Account">
@@ -102,13 +104,17 @@ function AccountVar2() {
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            <ProfileForm onSubmit={onProfileFormSubmit} user={user!} />
+            <ProfileForm
+              key={user?.id}
+              onSubmit={onProfileFormSubmit}
+              user={user!}
+            />
           </Tab.Panel>
           <Tab.Panel>
             <PasswordForm onSubmit={onPasswordFormSubmit} />
           </Tab.Panel>
           <Tab.Panel>
-            <AvatarForm onSubmit={onAvatarFormSubmit} />
+            <AvatarForm onSubmit={onAvatarFormSubmit} disabled={loading} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

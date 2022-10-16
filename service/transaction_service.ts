@@ -22,4 +22,11 @@ export class TransactionService {
       "get"
     );
   }
+
+  static async createTransaction(payload: {
+    campaign_id: number;
+    amount: number;
+  }): Promise<ApiResponse> {
+    return sendAndHandleRequest("/transactions", "post", payload);
+  }
 }

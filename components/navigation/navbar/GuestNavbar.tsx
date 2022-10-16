@@ -86,7 +86,7 @@ function GuestNavbar() {
                 className="font-light mb-2 lg:mb-0 lg:mr-2"
                 onClick={() => router.push("/sign-in")}
               >
-                Masuk
+                Sign In
               </Button>
             </>
           ) : (

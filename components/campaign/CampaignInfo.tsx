@@ -1,7 +1,12 @@
 import { Avatar, Button, Typography } from "components/common";
 import { CurrencyInput } from "components/common/input";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { TransactionService } from "service/transaction_service";
 import { ProjectType } from "service/types";
+import { useSendAndHandleInvalidToken } from "utils/hooks";
+import useToast from "utils/toast-hooks";
 
 interface CampaignInfoProps {
   campaign: ProjectType;
@@ -12,15 +17,50 @@ function CampaignInfo(props: CampaignInfoProps) {
   const [nominal, setNominal] = useState(0);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleButtonClick = () => {
+  const { toastLoading, updateToast, showToast } = useToast();
+
+  const send = useSendAndHandleInvalidToken();
+
+  const handleButtonClick = async () => {
     if (nominal < 10000) {
       setError(true);
-      setHelperText("Minimum donation is 10k");
+      setHelperText("Minimum amount is 10k");
       return;
     }
     setError(false);
     setHelperText("");
+
+    const token = Cookies.get("token");
+    if (!token) {
+      showToast("Please, sign in first!", "error");
+      router.push("/sign-in");
+      return;
+    }
+    toastLoading();
+    setLoading(true);
+
+    const payload = {
+      campaign_id: campaign.id,
+      amount: nominal,
+    };
+
+    const response = await send(() =>
+      TransactionService.createTransaction(payload)
+    );
+
+    const { data, meta } = response;
+    if (meta.code != 200) {
+      updateToast(meta.message, "error");
+    } else {
+      updateToast(meta.message, "success");
+    }
+    setLoading(false);
+    setTimeout(() => {
+      window.location = data.payment_url;
+    }, 2000);
   };
   return (
     <div className="bg-white p-4 border border-gray-400 rounded-xl mt-4 lg:mt-0 sticky top-4">
@@ -28,7 +68,7 @@ function CampaignInfo(props: CampaignInfoProps) {
         Project Leader:
       </Typography>
       <div className="flex mb-4">
-        <Avatar src={campaign.user.image_url} />
+        <Avatar className="w-14 h-14" src={campaign.user.image_url} />
         <div className="ml-4">
           <Typography variant="h5" className="font-medium">
             {campaign.user.name}
@@ -58,7 +98,13 @@ function CampaignInfo(props: CampaignInfoProps) {
         helperText={helperText}
       />
 
-      <Button onClick={handleButtonClick} block className="mt-4" rounded>
+      <Button
+        onClick={handleButtonClick}
+        block
+        className="mt-4"
+        rounded
+        disabled={loading}
+      >
         Fund Now
       </Button>
     </div>

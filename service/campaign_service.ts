@@ -36,7 +36,7 @@ export class CampaignService {
 
     const decoded: any = jwtDecode(token ?? "");
     return sendAndHandleRequest(
-      `/campaigns?user_id=${decoded?.user_id ?? 0}`,
+      `/campaigns?user_id=${decoded?.data?.user_id ?? 0}`,
       "get"
     );
   }

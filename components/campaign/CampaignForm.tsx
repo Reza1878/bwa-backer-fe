@@ -1,6 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Card } from "components/common";
-import { TextAreaField, TextField } from "components/common/input";
+import {
+  CurrencyInput,
+  TextAreaField,
+  TextField,
+} from "components/common/input";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreateCampaignPayload } from "service/campaign_service";
@@ -17,7 +21,7 @@ const schema = yup.object().shape({
     .number()
     .typeError("This field should be a number")
     .required()
-    .min(1),
+    .min(10000, "Goal amount should be at least 10k"),
   perks: yup.string().required("This field is required"),
 });
 
@@ -42,6 +46,7 @@ function CampaignForm(props: Partial<CampaignFormProps>) {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm<ProjectType>({
     resolver: yupResolver(schema),
     defaultValues: initialValue,
@@ -78,9 +83,13 @@ function CampaignForm(props: Partial<CampaignFormProps>) {
         <TextAreaField
           {...getInputAttribute("Description", "description", "description")}
         />
-        <TextField
-          type="number"
-          {...getInputAttribute("Goal Amount", "goal_amount", "goal_amount")}
+        <CurrencyInput
+          label="Goal Amount"
+          labelClassName="text-black"
+          defaultValue={initialValue["goal_amount"]}
+          error={!!errors["goal_amount"]}
+          helperText={errors["goal_amount"]?.message}
+          onValueChange={(val) => setValue("goal_amount", val)}
         />
         <TextField
           {...getInputAttribute("Perks (seperate by comma)", "perks", "perks")}

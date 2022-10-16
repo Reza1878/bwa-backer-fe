@@ -30,6 +30,7 @@ function Dashboard() {
     const arr = [];
     for (let i = 0; i < 12; i++) {
       const current = new Date();
+      current.setDate(current.getDate() + 1);
       current.setMonth(current.getMonth() - i);
       arr.push(current);
     }
@@ -59,10 +60,15 @@ function Dashboard() {
 
   const data = useMemo(() => {
     return months.map((month) => {
-      const name = dateFormat(month.toLocaleDateString(), {
-        month: "short",
-        year: "numeric",
-      });
+      const name = dateFormat(
+        month.toLocaleDateString(),
+        {
+          month: "short",
+          year: "numeric",
+        },
+        "en-EN"
+      );
+      console.log(name);
       const currentTransaction: { amount: number; period: string } =
         transactionsSummary.filter((item: any) => item.period === name)[0];
       return {
@@ -74,6 +80,7 @@ function Dashboard() {
       };
     });
   }, [months, transactionsSummary]);
+  console.log(data);
 
   return (
     <MemberLayout title="Dashboard">
@@ -112,7 +119,7 @@ function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="w-full bg-white rounded-lg p-4">
+        {/* <div className="w-full bg-white rounded-lg p-4">
           <Typography variant="h6" className="font-medium">
             Last Payments
           </Typography>
@@ -139,7 +146,7 @@ function Dashboard() {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
       </div>
     </MemberLayout>
   );
