@@ -58,11 +58,11 @@ function CampaignDetail() {
       <Container>
         <div className="w-full min-h-screen relative">
           <div className="flex flex-wrap lg:flex-nowrap">
-            <div className="w-full lg:w-3/4 mr-8">
+            <div className="w-full lg:w-3/4 lg:mr-8">
               {campaign && (
                 <>
                   <div className="w-full bg-white rounded-lg p-4 border border-gray-400">
-                    <div className="relative h-[450px]">
+                    <div className="relative lg:h-[450px] h-60">
                       {banner && (
                         <>
                           <Image

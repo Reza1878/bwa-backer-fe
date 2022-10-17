@@ -88,7 +88,7 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
   return (
     <aside
       className={clsx(
-        "bg-white h-full lg:w-72 visible fixed z-10 overflow-hidden transition-all",
+        "bg-white h-full lg:w-72 visible fixed z-10 overflow-hidden transition-all duration-300",
         [open && "w-72"],
         [!open && "w-0"]
       )}

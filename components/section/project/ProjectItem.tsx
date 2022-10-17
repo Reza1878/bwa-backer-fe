@@ -23,7 +23,7 @@ function ProjectItem(props: ProjectItemProps) {
   return (
     <div className="rounded-lg box-border border border-gray-400 p-6 col-span-3 lg:col-span-1 hover:shadow-xl transition-all project-card m-2">
       <div className="w-full">
-        <div className="relative h-64 lg:h-52">
+        <div className="relative h-52">
           <Image
             alt="project-banner"
             src={`${BASE_URL}${image}`}
