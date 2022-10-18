@@ -3,6 +3,7 @@ import { Typography } from "components/common";
 import { BaseTable } from "components/common/table";
 import { MemberLayout } from "components/layouts";
 import React, { useEffect, useMemo, useState } from "react";
+import { DollarSign } from "react-feather";
 import { TransactionService } from "service/transaction_service";
 import { ProjectType } from "service/types";
 import { dateFormat } from "utils/date_format";
@@ -64,7 +65,7 @@ function TransactionList() {
         name: "status",
         options: {
           customBodyRender: (val: string) => {
-            let background = "bg-red-500";
+            let background = "bg-yellow-500";
             if (val === "paid") background = "bg-success";
             if (val === "expired") background = "bg-secondary";
             return (
@@ -76,6 +77,28 @@ function TransactionList() {
               >
                 {val}
               </span>
+            );
+          },
+        },
+      },
+      {
+        label: "Action",
+        name: "action",
+        options: {
+          customBodyRenderLite: (index: number) => {
+            const item: any = transactions[index];
+            if (item.status != "pending") return "";
+            if (!item.payment_url) return "";
+            return (
+              <button
+                title="Pay"
+                className="bg-primary p-1 rounded-lg text-white"
+                onClick={() => {
+                  window.location = item.payment_url;
+                }}
+              >
+                <DollarSign />
+              </button>
             );
           },
         },

@@ -48,7 +48,7 @@ function Dashboard() {
         TransactionService.getTransactionSummary(dateStart, dateEnd)
       );
       if (!active) return;
-      setTransactionsSummary(response.data);
+      setTransactionsSummary(response.data || []);
     };
 
     if (months.length > 0) fetchData();
