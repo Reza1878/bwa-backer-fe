@@ -16,7 +16,7 @@ function ProgressBar(props: ProgressBarProps) {
     >
       <span
         style={{
-          width: `${percentage}%`,
+          width: `${Math.min(percentage, 100)}%`,
           height: "100%",
           position: "absolute",
         }}
