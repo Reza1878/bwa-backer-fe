@@ -38,9 +38,6 @@ function MemberLayout(props: MemberLayoutProps) {
         </div>
         <footer className="lg:pl-72 w-full">
           <div className="flex justify-between px-10">
-            <div>
-              <Typography className="opacity-70">&copy; Reza</Typography>
-            </div>
             <div className="flex items-center">
               <Typography className="opacity-70">Made with</Typography>
               <span className="pl-1">
@@ -52,6 +49,9 @@ function MemberLayout(props: MemberLayoutProps) {
                   opacity={0.7}
                 />
               </span>
+            </div>
+            <div>
+              <Typography className="opacity-70">by Reza</Typography>
             </div>
           </div>
         </footer>
