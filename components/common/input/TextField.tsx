@@ -28,7 +28,7 @@ const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
     } = props;
     const registerAttr = register ? register(props.name ?? "") : {};
     return (
-      <div className="mb-4">
+      <>
         {label && (
           <InputLabel error={error} htmlFor={id} className={labelClassName}>
             {label}
@@ -39,7 +39,7 @@ const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
           autoComplete="off"
           id={id}
           className={clsx(
-            "w-full py-3 px-6 focus:outline-none border",
+            "w-full py-3 px-6 focus:outline-none border mb-4",
             className,
             [error && "border border-red-500"],
             [rounded && "rounded-full"],
@@ -52,7 +52,7 @@ const TextField = forwardRef<HTMLInputElement, Partial<TextFieldProps>>(
             {helperText}
           </Typography>
         )}
-      </div>
+      </>
     );
   }
 );

@@ -53,9 +53,14 @@ function CampaignImageForm(props: Partial<CampaignImageForm>) {
               const image = e?.target?.files || [];
               if (image.length > 0) {
                 setImage(image[0]);
+                if (image[0].size / 1000 > 512) {
+                  setError("Max file size is 512kb.");
+                  return;
+                }
               } else {
                 setImage(undefined);
               }
+              setError("");
             }}
           />
           {error && (
@@ -97,7 +102,7 @@ function CampaignImageForm(props: Partial<CampaignImageForm>) {
             Primary
           </label>
         </div> */}
-        <Button block disabled={loading} onClick={handleSubmit}>
+        <Button block disabled={loading || !!error} onClick={handleSubmit}>
           Submit
         </Button>
       </Card>

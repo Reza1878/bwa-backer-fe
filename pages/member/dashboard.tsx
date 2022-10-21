@@ -68,7 +68,6 @@ function Dashboard() {
         },
         "en-EN"
       );
-      console.log(name);
       const currentTransaction: { amount: number; period: string } =
         transactionsSummary.filter((item: any) => item.period === name)[0];
       return {
@@ -80,7 +79,6 @@ function Dashboard() {
       };
     });
   }, [months, transactionsSummary]);
-  console.log(data);
 
   return (
     <MemberLayout title="Dashboard">

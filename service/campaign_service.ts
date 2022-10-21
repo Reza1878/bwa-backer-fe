@@ -13,9 +13,16 @@ export type CreateCampaignPayload = {
   perks: string;
 };
 export class CampaignService {
-  static async gets(): Promise<ApiResponse> {
+  static async gets(params?: {
+    limit?: number;
+    name?: string;
+  }): Promise<ApiResponse> {
     try {
-      const response = await axios.get(`${API_URL}/campaigns`);
+      const response = await axios.get(
+        `${API_URL}/campaigns?limit=${params?.limit || ""}&name=${
+          params?.name || ""
+        }`
+      );
 
       const { data, meta } = response.data;
       return { data, meta };
@@ -61,20 +68,6 @@ export class CampaignService {
   }
 
   static async getItem(id: number): Promise<ApiResponse> {
-    try {
-      const response = await axios.get(`${API_URL}/campaigns/${id}`);
-
-      const { data, meta } = response.data;
-      return { data, meta };
-    } catch (error) {
-      return {
-        meta: {
-          code: 500,
-          message: "Internal server error",
-          status: "error",
-        },
-        data: null,
-      };
-    }
+    return sendAndHandleRequest(`/campaigns/${id}`, "get");
   }
 }

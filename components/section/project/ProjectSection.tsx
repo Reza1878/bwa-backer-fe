@@ -1,4 +1,5 @@
 import { Container, Typography } from "components/common";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { CampaignService } from "service/campaign_service";
@@ -7,12 +8,13 @@ import ProjectItem from "./ProjectItem";
 
 function ProjectSection() {
   const [projects, setProjects] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     let active = true;
 
     const fetchData = async () => {
-      const response = await CampaignService.gets();
+      const response = await CampaignService.gets({ limit: 6 });
       if (!active) return;
 
       if (response.meta.code !== 200) {
@@ -37,9 +39,13 @@ function ProjectSection() {
           taken care of
         </Typography>
 
-        <a href="#" className="w-full lg:w-auto hover:underline">
+        <button
+          type="button"
+          className="w-full lg:w-auto hover:underline"
+          onClick={() => router.push("/campaign")}
+        >
           View all
-        </a>
+        </button>
       </div>
 
       <div className="grid grid-cols-3 gap-6 mt-4">

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 
 interface LoadingIndicatorProps {
-  color: "string";
+  color: string;
   width: number;
   height: number;
   borderWidth: number;

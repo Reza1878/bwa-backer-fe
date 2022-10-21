@@ -10,6 +10,7 @@ interface AvatarFormProps {
 function AvatarForm(props: AvatarFormProps) {
   const { onSubmit, disabled } = props;
   const [image, setImage] = useState<File>();
+  const [error, setError] = useState("");
 
   const { showToast } = useToast();
 
@@ -27,10 +28,22 @@ function AvatarForm(props: AvatarFormProps) {
       <Typography variant="h5" className="font-medium mb-4">
         Avatar
       </Typography>
-      <div className="flex justify-center">
-        <AvatarPicker onImageChange={(val) => setImage(val)} />
+      <div className="flex flex-col items-center justify-center">
+        <AvatarPicker
+          onImageChange={(val) => {
+            setImage(val);
+            if (val) {
+              if (val.size / 1000 > 512) {
+                setError("Max file size is 512kb.");
+                return;
+              }
+            }
+            setError("");
+          }}
+        />
+        {error && <p className="text-red-500">{error}</p>}
       </div>
-      <Button disabled={disabled} onClick={handleSubmit}>
+      <Button disabled={disabled || !!error} onClick={handleSubmit}>
         Save
       </Button>
     </Card>

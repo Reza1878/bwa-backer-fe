@@ -1,4 +1,10 @@
-import { Button, Container, Img, Typography } from "components/common";
+import {
+  AvatarPicker,
+  Button,
+  Container,
+  Img,
+  Typography,
+} from "components/common";
 import LoadingIndicator from "components/common/LoadingIndicator/LoadingIndicator";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -12,6 +18,7 @@ import useToast from "utils/toast-hooks";
 function UploadPhoto() {
   const [image, setImage] = useState<File>();
   const [imagePreview, setImagePreview] = useState("");
+  const [error, setError] = useState("");
   const [user, setUser] = useState<UserType>();
   const [loading, setLoading] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -87,39 +94,25 @@ function UploadPhoto() {
               <LoadingIndicator />
             ) : (
               <>
-                <div className="relative">
-                  <Img
-                    className="w-32 h-w-32 object-cover rounded-full bg-white cursor-pointer"
-                    onClick={openImgExplorer}
-                    src={imagePreview ? imagePreview : "/image/mock-avatar.png"}
+                <div className="flex flex-col items-center justify-center">
+                  <AvatarPicker
+                    onImageChange={(val) => {
+                      setImage(val);
+                      if (val) {
+                        if (val.size / 1000 > 512) {
+                          setError("Max file size is 512kb.");
+                          return;
+                        }
+                      }
+                      setError("");
+                    }}
                   />
-                  <a
-                    href="#"
-                    onClick={openImgExplorer}
-                    className="absolute bg-secondary rounded-full bottom-1 right-1 p-2"
-                  >
-                    {imagePreview ? (
-                      <Edit2 className="text-white w-5 h-5" />
-                    ) : (
-                      <Plus className="text-white w-5 h-5" />
-                    )}
-                  </a>
+                  {error && (
+                    <div className="bg-red-400 p-2 rounded-xl mt-2">
+                      <p className="text-white">{error}</p>
+                    </div>
+                  )}
                 </div>
-                <input
-                  type="file"
-                  ref={inputFileRef}
-                  className="hidden"
-                  onChange={(e) => {
-                    const image = e?.target?.files || [];
-                    if (image.length > 0) {
-                      setImagePreview(URL.createObjectURL(image[0]));
-                      setImage(image[0]);
-                    } else {
-                      setImagePreview("");
-                      setImage(undefined);
-                    }
-                  }}
-                />
                 <Typography variant="h4" className="text-white mt-4">
                   Hi, {(user?.name ?? "").split(" ")[0]}
                 </Typography>
@@ -134,6 +127,7 @@ function UploadPhoto() {
                   className="mt-4 lg:w-full"
                   style={{ width: "100%" }}
                   onClick={uploadAvatar}
+                  disabled={!!error}
                 >
                   Sign Up Now
                 </Button>

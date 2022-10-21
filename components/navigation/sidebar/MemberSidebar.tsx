@@ -4,7 +4,14 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Briefcase, CreditCard, Home, LogOut, User } from "react-feather";
+import {
+  Briefcase,
+  CreditCard,
+  Home,
+  LogOut,
+  Search,
+  User,
+} from "react-feather";
 import { AuthService } from "service/auth_service";
 import { UserType } from "service/types";
 import UserService from "service/user_service";
@@ -45,6 +52,11 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
         title: "Account",
         icon: (strokeWidth: number = 1) => <User strokeWidth={strokeWidth} />,
         href: "/member/account",
+      },
+      {
+        title: "Find Project",
+        icon: (strokeWidth: number = 1) => <Search strokeWidth={strokeWidth} />,
+        href: "/campaign",
       },
     ];
   }, []);
