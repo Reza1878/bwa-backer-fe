@@ -1,17 +1,27 @@
 import { CampaignImageForm, CampaignImageItem } from "components/campaign";
-import { Button, Card, Img, ItemsDisplay, Typography } from "components/common";
+import {
+  Button,
+  Card,
+  ConfirmationModal,
+  Img,
+  ItemsDisplay,
+  Typography,
+} from "components/common";
 import LoadingIndicator from "components/common/LoadingIndicator/LoadingIndicator";
 import { BaseTable } from "components/common/table";
 import { MemberLayout } from "components/layouts";
 import { BASE_URL } from "config/constant";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
+import { Trash } from "react-feather";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
 import { dateFormat } from "utils/date_format";
 import { useSendAndHandleInvalidToken } from "utils/hooks";
 import { rupiahFormat } from "utils/number_format";
 import useToast from "utils/toast-hooks";
+import noImage from "../../../../public/image/no-image.png";
 
 function DetailCampaign() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +30,9 @@ function DetailCampaign() {
   const [transactions, setTransactions] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [flagRefetch, setFlagRefetch] = useState(false);
-  const { showToast } = useToast();
+  const [showDeleteImageModal, setShowDeleteImageModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+  const { showToast, toastLoading, updateToast } = useToast();
   const router = useRouter();
   const sendAndHandleInvalidToken = useSendAndHandleInvalidToken();
 
@@ -84,12 +96,16 @@ function DetailCampaign() {
       label: "Banner",
       key: "image_url",
       display: (val: any) => {
-        if (!val) return `No image banner available!`;
+        // if (!val) return `No image banner available!`;
         return (
-          <Img
-            src={`${BASE_URL}${val}`}
-            className="w-full h-72 object-cover rounded-lg"
-          />
+          <div className="w-full h-72 relative border-gray-400 border rounded-lg">
+            <Image
+              src={val ? `${BASE_URL}${val}` : noImage}
+              className="object-cover rounded-lg"
+              alt="Image banner"
+              layout="fill"
+            />
+          </div>
         );
       },
     },
@@ -121,6 +137,26 @@ function DetailCampaign() {
       },
     ];
   }, []);
+
+  const send = useSendAndHandleInvalidToken();
+
+  const onConfirmDeleteImage = async (isConfirmed: boolean) => {
+    setShowDeleteImageModal(false);
+    if (!isConfirmed || !selectedImage) return;
+
+    toastLoading();
+    console.log(selectedImage);
+    const response = await send(() =>
+      CampaignService.deleteImage(selectedImage["id"])
+    );
+
+    const { meta, data } = response;
+
+    updateToast(meta.message, meta.code !== 200 ? "error" : "success");
+    setSelectedImage(null);
+    setFlagRefetch(!flagRefetch);
+  };
+
   return (
     <MemberLayout title="Detail Campaign">
       <Typography variant="h3">Campaign Details</Typography>
@@ -152,10 +188,20 @@ function DetailCampaign() {
             <div className="flex flex-wrap overflow-x-scroll mt-4 -mx-2 no-scrollbar">
               <div className="flex flex-nowrap">
                 {campaign?.images.map((item, index) => (
-                  <CampaignImageItem
-                    src={`${BASE_URL}${item.image_url}`}
-                    key={index}
-                  />
+                  <div className="p-2" key={index}>
+                    <CampaignImageItem src={`${BASE_URL}${item.image_url}`} />
+                    <Button
+                      variant="danger"
+                      block
+                      className="flex justify-center"
+                      onClick={() => {
+                        setShowDeleteImageModal(true);
+                        setSelectedImage(item);
+                      }}
+                    >
+                      <Trash />
+                    </Button>
+                  </div>
                 ))}
               </div>
             </div>
@@ -175,6 +221,10 @@ function DetailCampaign() {
         closeHandler={() => setShowUploadModal(false)}
         onSubmit={handleUploadImage}
         loading={isUploading}
+      />
+      <ConfirmationModal
+        show={showDeleteImageModal}
+        onClose={onConfirmDeleteImage}
       />
     </MemberLayout>
   );

@@ -11,6 +11,7 @@ import Card from "./Card";
 import ItemsDisplay from "./ItemsDisplay";
 import Modal from "./Modal";
 import AvatarPicker from "./AvatarPicker";
+import ConfirmationModal from "./ConfirmationModal";
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   Card,
   ItemsDisplay,
   AvatarPicker,
+  ConfirmationModal,
 };

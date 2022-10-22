@@ -60,6 +60,10 @@ export class CampaignService {
     return sendAndHandleRequest("/campaigns-images", "post", payload);
   }
 
+  static async deleteImage(id: number): Promise<ApiResponse> {
+    return sendAndHandleRequest(`/campaigns-images/${id}`, "delete");
+  }
+
   static async update(
     id: number,
     payload: CreateCampaignPayload

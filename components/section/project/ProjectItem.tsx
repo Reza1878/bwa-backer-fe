@@ -3,6 +3,7 @@ import { BASE_URL } from "config/constant";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import noImage from "../../../public/image/no-image.png";
 
 interface ProjectItemProps {
   id: number;
@@ -26,7 +27,7 @@ function ProjectItem(props: ProjectItemProps) {
         <div className="relative h-52">
           <Image
             alt="project-banner"
-            src={`${BASE_URL}${image}`}
+            src={image ? `${BASE_URL}${image}` : noImage}
             className="rounded-sm w-full"
             objectFit="cover"
             layout="fill"

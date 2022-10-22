@@ -124,14 +124,22 @@ function MemberSidebar(props: Partial<MemberSidebarProps>) {
           <li key={item.href} className="flex items-center relative py-4 px-6">
             <Link href={item.href}>
               <a className="flex w-full overflow-hidden">
-                {router.pathname.includes(item.href) && (
-                  <span className="absolute bg-success inset-y-0 w-1 left-0 rounded-r-lg"></span>
+                {router.pathname.includes(item.href) &&
+                  item.href.includes("/member") && (
+                    <span className="absolute bg-success inset-y-0 w-1 left-0 rounded-r-lg"></span>
+                  )}
+                {item.icon(
+                  router.pathname.includes(item.href) &&
+                    item.href.includes("/member")
+                    ? 2
+                    : 1
                 )}
-                {item.icon(router.pathname.includes(item.href) ? 2 : 1)}
                 <Typography
                   variant="small"
                   className={clsx("ml-2", [
-                    router.pathname.includes(item.href) && "font-medium",
+                    router.pathname.includes(item.href) &&
+                      item.href.includes("/member") &&
+                      "font-medium",
                   ])}
                 >
                   {item.title}

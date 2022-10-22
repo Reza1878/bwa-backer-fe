@@ -21,9 +21,11 @@ function ItemsDisplay(props: ItemsDisplayProps) {
             <Typography className="font-bold">{attr.label}</Typography>
           </div>
           <div className="col-span-3 lg:col-span-2">
-            <Typography>
-              {attr.display ? attr.display(data[attr.key]) : data[attr.key]}
-            </Typography>
+            {attr.display ? (
+              attr.display(data[attr.key])
+            ) : (
+              <Typography>{data[attr.key]}</Typography>
+            )}
           </div>
         </div>
       ))}

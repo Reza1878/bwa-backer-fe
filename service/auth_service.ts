@@ -71,9 +71,6 @@ export class AuthService {
   }
 
   static async logout(refreshToken: string) {
-    console.log({
-      refresh_token: refreshToken,
-    });
     return sendAndHandleRequest("sessions", "delete", {
       data: { refresh_token: refreshToken },
     });

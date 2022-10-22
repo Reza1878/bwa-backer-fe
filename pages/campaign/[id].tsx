@@ -9,11 +9,12 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { CampaignService } from "service/campaign_service";
 import { ProjectType } from "service/types";
+import noImage from "../../public/image/no-image.png";
 
 function CampaignDetail() {
   const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<ProjectType>();
-  const [banner, setBanner] = useState("");
+  const [banner, setBanner] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -77,17 +78,13 @@ function CampaignDetail() {
                     <>
                       <div className="w-full bg-white rounded-lg p-4 border border-gray-400">
                         <div className="relative lg:h-[450px] h-60">
-                          {banner && (
-                            <>
-                              <Image
-                                src={banner}
-                                className="rounded-lg"
-                                objectFit="cover"
-                                layout="fill"
-                                alt="project-banner"
-                              />
-                            </>
-                          )}
+                          <Image
+                            src={banner ?? noImage}
+                            className="rounded-lg"
+                            objectFit="cover"
+                            layout="fill"
+                            alt="project-banner"
+                          />
                         </div>
                       </div>
                       <div className="w-full flex overflow-x-scroll mt-4 -mx-2 no-scrollbar">
