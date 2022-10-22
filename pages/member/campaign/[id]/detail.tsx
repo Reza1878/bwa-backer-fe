@@ -145,7 +145,6 @@ function DetailCampaign() {
     if (!isConfirmed || !selectedImage) return;
 
     toastLoading();
-    console.log(selectedImage);
     const response = await send(() =>
       CampaignService.deleteImage(selectedImage["id"])
     );
