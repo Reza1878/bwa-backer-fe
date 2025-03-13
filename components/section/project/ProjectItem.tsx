@@ -2,8 +2,9 @@ import { Button, Img, ProgressBar } from "components/common";
 import { BASE_URL } from "config/constant";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useRef } from "react";
 import noImage from "../../../public/image/no-image.png";
+import { useInView, motion } from "framer-motion";
 
 interface ProjectItemProps {
   id: number;
@@ -16,13 +17,21 @@ interface ProjectItemProps {
 
 function ProjectItem(props: ProjectItemProps) {
   const { image, title, description, progress, target, id } = props;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   const router = useRouter();
   const handleClick = () => {
     router.push(`/campaign/${id}`);
   };
   return (
-    <div className="rounded-lg box-border border border-gray-400 p-6 col-span-3 lg:col-span-1 hover:shadow-xl transition-all project-card m-2">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, filter: "blur(10px)", scale: 0.9 }}
+      animate={isInView ? { opacity: 1, filter: "blur(0px)", scale: 1 } : {}}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="rounded-lg box-border border border-gray-400 p-6 col-span-3 lg:col-span-1 hover:shadow-xl transition-all project-card m-2"
+    >
       <div className="w-full">
         <div className="relative h-52">
           <Image
@@ -55,7 +64,7 @@ function ProjectItem(props: ProjectItemProps) {
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
