@@ -1,7 +1,6 @@
 import { Container, Typography } from "components/common";
 import React from "react";
 import Image from "next/image";
-
 import StepItem from "./StepItem";
 import stepLine from "../../../public/image/line-step.svg";
 import step1 from "../../../public/image/step-1-illustration.svg";

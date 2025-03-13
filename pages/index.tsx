@@ -2,6 +2,7 @@ import { Button, Container, Typography } from "components/common";
 import HeaderBackground from "components/HeaderBackground";
 import { GuestLayout } from "components/layouts";
 import { ClientSection, ProjectSection, StepSection } from "components/section";
+import { motion } from "framer-motion";
 import heroImage from "../public/image/hero-image@2x.png";
 
 import type { NextPage } from "next";
@@ -36,9 +37,14 @@ const Home: NextPage = () => {
               Find a Project
             </Button>
           </div>
-          <div className="relative lg:w-1/2 w-full">
+          <motion.div
+            initial={{ opacity: 0.5, scale: 0.5, y: -48 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative lg:w-1/2 w-full"
+          >
             <Image src={heroImage} alt="Hero image" placeholder="blur" />
-          </div>
+          </motion.div>
         </Container>
       </div>
       <StepSection />
